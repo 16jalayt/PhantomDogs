@@ -1,4 +1,8 @@
-# SapphireEngine
-A game engine built on sdl2 and c++. Designed to be game agnostic, but currently configured to run the earlier Nancy Drew games. This is the main driver for this project, however object creation is abstracted away. Can currently load simple scenes from ND #7 Ghost Dogs of Moon Lake (PC 2002). Assets not included.
+# PhantomDogs
+An game application for https://github.com/16jalayt/SapphireEngine. Can currently load simple scenes from ND #7 Ghost Dogs of Moon Lake (PC 2002). Assets not included. Designed mainly as a programming exercise.
 
 The project is far from playable!
+
+To checkout: git clone --recursive https://github.com/16jalayt/PhantomDogs
+
+to update: git pull, git submodule update --remote
