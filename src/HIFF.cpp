@@ -1,9 +1,9 @@
-#include "Nancy/HIFF.h"
+#include "HIFF.h"
 #include "Engine/Scene.h"
 #include "Loader.h"
 #include "HIFFChunks/ACT/ACT.h"
 #include "HIFFChunks/SUM.h"
-#include <loguru.hpp>
+#include <loguru/loguru.hpp>
 
 bool HIFF::Load_HIFF(std::string sceneName)
 {

@@ -1,5 +1,9 @@
-#include "globals.h"
-#include <loguru.hpp>
+#include "Engine/globals.h"
+#include <loguru/loguru.hpp>
+#include <vector>
+#include <fstream>
+#include <Engine/Utils.h>
+#include "../Scene.h"
 
 typedef struct Dependency
 {

@@ -1,18 +1,19 @@
-#include <sstream>
 #include <SDL2/SDL_image.h>
+#include <sstream>
 
-#include <oldhertools/lzss.hpp>
-#include <oldhertools/crypt_misc.hpp>
-#include <oldhertools/colorspace.hpp>
+#include "oldhertools/colorspace.hpp"
+#include "oldhertools/crypt_misc.hpp"
+#include "oldhertools/lzss.hpp"
+#include "oldhertools/avf.hpp"
 
-#include "Nancy/AVF.h"
-#include "Engine/utils.h"
-#include <oldhertools/avf.hpp>
+#include "AVF.h"
+#include "Engine/Utils.h"
 
 //#include <png++/png.hpp>
-#include <iostream>
+#include <Engine/Graphics.h>
 #include <iomanip>
-#include <loguru.hpp>
+#include <iostream>
+#include <loguru/loguru.hpp>
 
 //TODO: Everything touched by avf leaks memory becasue it is static
 std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)

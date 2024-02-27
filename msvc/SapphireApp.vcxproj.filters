@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\oldhertools">
+      <UniqueIdentifier>{37358b34-0b86-47cb-9ea6-14cbeab6b3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HIFFChunks">
+      <UniqueIdentifier>{9c2ba47b-f544-4dd4-90a8-9025d1a4ecb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HIFFChunks\ACT">
+      <UniqueIdentifier>{3f834d89-1f4c-4a2d-9e5d-0f0bd02d3f18}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SapphireApp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AVF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CIFF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HIFF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\oldhertools\crypt_misc.cpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\oldhertools\fileidx.cpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\oldhertools\lzss.cpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\oldhertools\colorspace.cpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HIFFChunks\SUM.cpp">
+      <Filter>Source Files\HIFFChunks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HIFFChunks\ACT\ACT.cpp">
+      <Filter>Source Files\HIFFChunks\ACT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SapphireEngine\include\Engine\SapphireApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\oldhertools\crypt_misc.hpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\oldhertools\lzss.hpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\oldhertools\avf.hpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\oldhertools\colorspace.hpp">
+      <Filter>Source Files\oldhertools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HIFFChunks\SUM.h">
+      <Filter>Source Files\HIFFChunks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HIFFChunks\ACT\ACT.h">
+      <Filter>Source Files\HIFFChunks\ACT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HIFF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AVF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CIFF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HIFFChunks\Dependency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

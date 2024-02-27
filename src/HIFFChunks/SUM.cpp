@@ -1,9 +1,9 @@
-#include <Nancy/HIFFChunks/SUM.h>
-#include <string>
-#include <Engine/utils.h>
+#include "HIFF.h"
+#include "HIFFChunks/SUM.h"
 #include <Engine/Button.h>
-#include <Nancy/HIFF.h>
 #include <Engine/Scene.h>
+#include <Engine/Utils.h>
+#include <string>
 
 bool SUM::Parse(std::ifstream& inFile, std::string sceneName)
 {

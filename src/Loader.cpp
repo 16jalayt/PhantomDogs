@@ -1,7 +1,8 @@
-#include "Nancy/Loader.h"
+#include "Loader.h"
+#include <Engine/Graphics.h>
 #include <Engine/Scene.h>
-#include <loguru.hpp>
-#include <Engine/graphics.h>
+#include <loguru/loguru.hpp>
+#include "Scene.h"
 
 GUI_ptr currentGUI;
 
