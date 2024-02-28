@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
-
-#include "Engine/graphics.h"
+#include <Engine/SDL_ptr.h>
 
 class AVF
 {

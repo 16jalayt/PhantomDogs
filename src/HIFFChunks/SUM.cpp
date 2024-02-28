@@ -1,7 +1,5 @@
-#include "HIFF.h"
-#include "HIFFChunks/SUM.h"
-#include <Engine/Button.h>
-#include <Engine/Scene.h>
+#include "SUM.h"
+#include "../Scene.h"
 #include <Engine/Utils.h>
 #include <string>
 

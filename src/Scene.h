@@ -2,10 +2,10 @@
 
 #include <string>
 
-#include "Button.h"
+#include "Engine\Button.h"
 #include "Movie.h"
-#include "SDL_ptr.h"
-#include "sprite.h"
+#include "Engine\SDL_ptr.h"
+#include "Engine\Sprite.h"
 
 //CurrentScene is static.
 //Use to reference class functions.

@@ -24,19 +24,22 @@
 
 //#include "vld.h"
 #include <loguru/loguru.hpp>
+//bad practice but vcpkg doesn't compile, so linker fails
+#include <loguru/loguru.cpp>
 
 #include "globals.h"
-#include "utils.h"
-#include "graphics.h"
-#include "sprite.h"
-#include "SDL_ptr.h"
-#include "Button.h"
+#include "Engine\Utils.h"
+#include "Engine\Graphics.h"
+#include "Engine\Sprite.h"
+#include "Engine\SDL_ptr.h"
+#include "Engine\Button.h"
 #include "Scene.h"
 #include "Loader.h"
-#include "GUI.h"
-#include "Config.h"
-#include "Cursor.h"
-#include "audio.h"
+#include "Engine\GUI.h"
+#include "Engine\Config.h"
+#include "Engine\Cursor.h"
+#include "Engine\Audio.h"
+#include <Engine\SapphireApp.h>
 
 /*void tracetest()
 {
@@ -45,26 +48,17 @@
 
 int main(int argc, char** argv)
 {
-	if (SapphireApp.Initialize())
-	{
-		printf("\nUnable to start engine\n");
-		quit();
-	}
 	Config::parse(argc, argv);
 
-	Graphics_ptr graphics = std::make_unique<Graphics>();
-	//Graphics_ptr graphics = Graphics_ptr(new Graphics());
-
-	//TODO: dont need anymore?
-	SDL_Texture_sptr loading_tex;
-
-	// initial subsystem. If error, just exit. Error already printed.
-	if (graphics->init(loading_tex) < 0)
-		quit();
+	SapphireApp app = SapphireApp("PhantomDogs", "A reimplementation of Nancy Drew 7");
+	//if (!app)
+	//{
+		//printf("\nUnable to start engine\n");
+		//quit();
+	//}
 
 	//Test loading screen
 	//SDL_Delay(2000);
-	initControls();
 
 	//Sprite_ptr frame = std::make_shared<Sprite>("DataFiles/CIFTREE/frame.png", 0, 0, RenderParent::window);
 	//frame->setPos(SDL_Rect{ 0,0,(int)(frame->getWidth() * GlobalScale), (int)(frame->getHeight() * GlobalScale) });
@@ -220,10 +214,7 @@ int main(int argc, char** argv)
 			}
 		}
 
-		SDL_SetRenderDrawColor(Graphics::renderer.get(), 255, 0, 0, 0xFF);
-
-		//TODO: only render not canvas?
-		SDL_RenderClear(Graphics::renderer.get());
+		app.startFrame();
 
 		/*SDL_SetRenderTarget(Graphics::renderer.get(), GUI::canvas.get());
 		SDL_RenderClear(Graphics::renderer.get());
@@ -242,18 +233,8 @@ int main(int argc, char** argv)
 		}*/
 		//menuFMV->Draw();
 
-		//Doesn't have to be here. Handled by SDL
-		Cursor::DrawCursor();
-		/*if (Cursor::CursorChanged)
-		{
-			Cursor::DrawCursor();
-			Cursor::CursorChanged = false;
-		}*/
-
-		SDL_RenderPresent(Graphics::renderer.get());
-
-		graphics->frameWait();
+		app.endFrame();
 	}
 
-	//quit();
+	quit();
 }

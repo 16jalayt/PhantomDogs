@@ -22,6 +22,9 @@
     <Filter Include="Source Files\HIFFChunks\ACT">
       <UniqueIdentifier>{3f834d89-1f4c-4a2d-9e5d-0f0bd02d3f18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\player-cpp-ffmpeg-sdl">
+      <UniqueIdentifier>{6c11680a-1a3d-4819-8888-afc38984b78e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SapphireApp.rc">
@@ -70,8 +73,17 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SapphireEngine\include\Engine\SapphireApp.cpp">
+    <ClCompile Include="..\src\Movie.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.cpp">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.cpp">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\AudioCallback.cpp">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +105,7 @@
     <ClInclude Include="..\src\HIFFChunks\ACT\ACT.h">
       <Filter>Source Files\HIFFChunks\ACT</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\globals.h">
+    <ClInclude Include="..\src\Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\HIFF.h">
@@ -116,6 +128,24 @@
     </ClInclude>
     <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Movie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\AudioPacket.h">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\defs.h">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.h">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.h">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\AudioCallback.h">
+      <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

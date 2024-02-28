@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Nancy/CIFF.h"
-#include "Nancy/HIFF.h"
 #include "Engine/GUI.h"
 //load
 //load video

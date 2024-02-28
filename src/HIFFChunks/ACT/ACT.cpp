@@ -1,16 +1,14 @@
-#include "HIFFChunks/ACT/ACT.h"
+#include "ACT.h"
 #include <random>
 #include <string>
 
 #include "../Dependency.h"
-#include "Engine/Button.h"
-#include "Engine/Scene.h"
-#include "Engine/Utils.h"
-#include "HIFF.h"
-#include "Loader.h"
+#include <Engine/Button.h>
+#include <Engine/Utils.h>
 #include <Engine/Config.h>
 #include <Engine/Cursor.h>
 #include <loguru/loguru.hpp>
+#include "../../Loader.h"
 
 bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 {

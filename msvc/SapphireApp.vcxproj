@@ -147,7 +147,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Winmm.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\assets\" "$(TargetDir)\" /E /Y /I /D
@@ -183,7 +183,6 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     <Image Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\SapphireEngine\include\Engine\SapphireApp.cpp" />
     <ClCompile Include="..\src\AVF.cpp" />
     <ClCompile Include="..\src\CIFF.cpp" />
     <ClCompile Include="..\src\HIFF.cpp" />
@@ -191,26 +190,36 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     <ClCompile Include="..\src\HIFFChunks\SUM.cpp" />
     <ClCompile Include="..\src\Loader.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Movie.cpp" />
     <ClCompile Include="..\src\oldhertools\colorspace.cpp" />
     <ClCompile Include="..\src\oldhertools\crypt_misc.cpp" />
     <ClCompile Include="..\src\oldhertools\fileidx.cpp" />
     <ClCompile Include="..\src\oldhertools\lzss.cpp" />
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\AudioCallback.cpp" />
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.cpp" />
+    <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h" />
     <ClInclude Include="..\src\AVF.h" />
     <ClInclude Include="..\src\CIFF.h" />
-    <ClInclude Include="..\src\globals.h" />
+    <ClInclude Include="..\src\Globals.h" />
     <ClInclude Include="..\src\HIFF.h" />
     <ClInclude Include="..\src\HIFFChunks\ACT\ACT.h" />
     <ClInclude Include="..\src\HIFFChunks\Dependency.h" />
     <ClInclude Include="..\src\HIFFChunks\SUM.h" />
     <ClInclude Include="..\src\Loader.h" />
+    <ClInclude Include="..\src\Movie.h" />
     <ClInclude Include="..\src\oldhertools\avf.hpp" />
     <ClInclude Include="..\src\oldhertools\colorspace.hpp" />
     <ClInclude Include="..\src\oldhertools\crypt_misc.hpp" />
     <ClInclude Include="..\src\oldhertools\lzss.hpp" />
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\AudioCallback.h" />
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\AudioPacket.h" />
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\defs.h" />
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.h" />
+    <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.h" />
     <ClInclude Include="..\src\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

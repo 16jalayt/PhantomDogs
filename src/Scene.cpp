@@ -1,13 +1,13 @@
 #include "Scene.h"
 
 #include "AVF.h"
-#include "Audio.h"
-#include "Engine/Config.h"
-#include "GUI.h"
+#include <Engine/Audio.h>
+#include <Engine/Config.h>
+#include <Engine/GUI.h>
 #include <Engine/Graphics.h>
 #include "HIFF.h"
 #include "Loader.h"
-#include <Engine/player-cpp-ffmpeg-sdl/FFPlayer.h>
+#include "player-cpp-ffmpeg-sdl/FFPlayer.h"
 #include <loguru/loguru.hpp>
 
 Scene_ptr currentScene;

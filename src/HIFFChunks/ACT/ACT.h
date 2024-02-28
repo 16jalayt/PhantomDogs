@@ -1,8 +1,6 @@
 #pragma once
 #include <fstream>
 
-#include "Engine/Scene.h"
-
 class ACT
 {
 public:

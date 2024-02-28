@@ -1,5 +1,5 @@
 #include "HIFF.h"
-#include "Engine/Scene.h"
+#include "Scene.h"
 #include "Loader.h"
 #include "HIFFChunks/ACT/ACT.h"
 #include "HIFFChunks/SUM.h"
