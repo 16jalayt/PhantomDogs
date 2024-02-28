@@ -183,6 +183,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     <Image Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Audio.cpp" />
     <ClCompile Include="..\src\AVF.cpp" />
     <ClCompile Include="..\src\CIFF.cpp" />
     <ClCompile Include="..\src\HIFF.cpp" />
@@ -202,6 +203,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h" />
+    <ClInclude Include="..\src\Audio.h" />
     <ClInclude Include="..\src\AVF.h" />
     <ClInclude Include="..\src\CIFF.h" />
     <ClInclude Include="..\src\Globals.h" />
@@ -221,6 +223,11 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.h" />
     <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.h" />
     <ClInclude Include="..\src\Scene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SapphireEngine\msvc\SapphireEngine.vcxproj">
+      <Project>{be896d8c-9dcc-4a2f-b1ab-a24461bf7f08}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
