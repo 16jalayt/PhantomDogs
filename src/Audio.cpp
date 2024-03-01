@@ -7,13 +7,14 @@
 #include "Engine/Config.h"
 #include "Loader.h"
 #include <loguru/loguru.hpp>
+#include <Engine/AudioClip.h>
 
-void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR)
+void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int volR)
 {
 	AddSound(sound, channel, loop, volL, volR, "");
 }
 
-void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
+void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
 {
 	AudioClip_ptr player = std::make_shared<AudioClip>();
 
@@ -163,7 +164,7 @@ void Audio::AddSound(std::string sound, int channel, int loop, int volL, int vol
 		if (scene != "9999" || scene != "")
 			player->changeTo = scene;
 
-		Audio::sounds.push_back(std::move(player));
+		sounds.push_back(std::move(player));
 
 		//TODO: vol here and music
 	}
@@ -171,7 +172,7 @@ void Audio::AddSound(std::string sound, int channel, int loop, int volL, int vol
 		LOG_F(INFO, "    Silencing channel %d", channel);
 }
 
-void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int volR)
+void Audio2::AddMusic(std::string sound, int channel, int loop, int volL, int volR)
 {
 	if (currentMusic && sound == currentMusic->ClipName)
 		return;
@@ -218,7 +219,7 @@ void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int vol
 	currentMusic = player;
 }
 
-void Audio::CheckTransitions()
+void Audio2::CheckTransitions()
 {
 	//TODO: Doesn't transfer when file not found
 	for (int i = 0; i < sounds.size(); i++)
@@ -241,13 +242,13 @@ void Audio::CheckTransitions()
 	}
 }
 
-void Audio::AddTransition(std::string scene)
+void Audio2::AddTransition(std::string scene)
 {
 	LOG_F(WARNING, "Audio::AddTransition Stub");
 }
 
 //problems with switch reading char
-bool Audio::CheckIfOgg(SDL_RWops* file)
+bool Audio2::CheckIfOgg(SDL_RWops* file)
 {
 	//Where ogg file should start
 	file->seek(file, 0x1e, RW_SEEK_SET);
@@ -257,7 +258,7 @@ bool Audio::CheckIfOgg(SDL_RWops* file)
 	return (char)testVal == 'O';
 }
 
-void Audio::pushIntToVector(int value, std::vector<char>* v)
+void Audio2::pushIntToVector(int value, std::vector<char>* v)
 {
 	v->push_back(value);
 	v->push_back(value >> 8);
@@ -265,13 +266,13 @@ void Audio::pushIntToVector(int value, std::vector<char>* v)
 	v->push_back(value >> 24);
 }
 
-void Audio::pushShortToVector(short value, std::vector<char>* v)
+void Audio2::pushShortToVector(short value, std::vector<char>* v)
 {
 	v->push_back((char)value);
 	v->push_back(value >> 8);
 }
 
-void Audio::pushSringToVector(std::string value, std::vector<char>* v)
+void Audio2::pushSringToVector(std::string value, std::vector<char>* v)
 {
 	v->insert(v->end(), value.begin(), value.end());
 }

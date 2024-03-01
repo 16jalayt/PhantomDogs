@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 
@@ -5,8 +7,9 @@
 #include <Engine/AudioClip.h>
 #include <Engine/Audio.h>
 #include "Globals.h"
+#include <memory>
 
-class Audio : public Audio
+class Audio2 : public Audio
 {
 public:
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2);
@@ -24,3 +27,4 @@ private:
 };
 //Currently due to callback, only one bink can play audio at a time.
 static bool binkAudioLock = false;
+using Audio2_ptr = std::unique_ptr<Audio2>;

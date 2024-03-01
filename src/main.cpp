@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 {
 	Config::parse(argc, argv);
 
-	SapphireApp app = SapphireApp("PhantomDogs", "A reimplementation of Nancy Drew 7");
+	SapphireApp_ptr app = std::make_unique<SapphireApp>("PhantomDogs", "A reimplementation of Nancy Drew 7");
 	//if (!app)
 	//{
 		//printf("\nUnable to start engine\n");
@@ -85,8 +85,9 @@ int main(int argc, char** argv)
 	int exit_requested = 0;
 	int wait = 25;
 	SDL_Event event;
+	currentGUI->Draw();
 #if !defined(__SWITCH__) && !defined(__APPLE__)
-	ImGuiIO& io = ImGui::GetIO();
+	//ImGuiIO& io = ImGui::GetIO();
 #endif
 	bool toggle = true;
 	int scenenum = 0;
@@ -175,30 +176,30 @@ int main(int argc, char** argv)
 					break;
 				}
 #if !defined(__SWITCH__) && !defined(__APPLE__)
-				if (io.WantCaptureKeyboard)
+				//if (io.WantCaptureKeyboard)
 #endif
-					break;
+				break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
 #if !defined(__SWITCH__) && !defined(__APPLE__)
-				if (!io.WantCaptureMouse)
+				//if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
-					currentScene->EventProc(event);
+				currentScene->EventProc(event);
 				//LOG_F(ERROR, "Touch at: %d,%d\n", event.tfinger.x, event.tfinger.y);
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
 #if !defined(__SWITCH__) && !defined(__APPLE__)
-				if (!io.WantCaptureMouse)
-				{
+				//if (!io.WantCaptureMouse)
+				//{
 #endif
 					//LOG_F(ERROR, "Fingermotion");
 					//TODO: explicitly set to system cursor for IMGUI?
-					Cursor::CursorChanged = false;
-					currentScene->EventProc(event);
+				Cursor::CursorChanged = false;
+				currentScene->EventProc(event);
 #if !defined(__SWITCH__) && !defined(__APPLE__)
-				}
+				//}
 #endif
 				break;
 
@@ -214,7 +215,7 @@ int main(int argc, char** argv)
 			}
 		}
 
-		app.startFrame();
+		app->startFrame();
 
 		/*SDL_SetRenderTarget(Graphics::renderer.get(), GUI::canvas.get());
 		SDL_RenderClear(Graphics::renderer.get());
@@ -233,7 +234,7 @@ int main(int argc, char** argv)
 		}*/
 		//menuFMV->Draw();
 
-		app.endFrame();
+		app->endFrame();
 	}
 
 	quit();

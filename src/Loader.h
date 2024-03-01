@@ -19,6 +19,7 @@ public:
 	static std::string getOVL(std::string ovlName);
 	static std::string getVideoPath(std::string backName);
 	static std::string getSoundPath(std::string soundName);
+	//static GUI_ptr currentGUI;
 };
 
 extern GUI_ptr currentGUI;

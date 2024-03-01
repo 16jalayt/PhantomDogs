@@ -111,7 +111,7 @@
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\assets\" "$(TargetDir)\" /E /Y /I /D
-XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
+XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +133,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\assets\" "$(TargetDir)\" /E /Y /I /D
-XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
+XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -151,7 +151,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\assets\" "$(TargetDir)\" /E /Y /I /D
-XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
+XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,7 +173,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\assets\" "$(TargetDir)\" /E /Y /I /D
-XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\" /E /Y /I /D</Command>
+XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
