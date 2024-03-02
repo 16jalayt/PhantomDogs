@@ -38,13 +38,13 @@ bool Loader::Boot()
 		//HIFF::Load_HIFF("4150");
 		//tun stairs
 		//loadScene("4069");
-	//loadScene("4604");
+	loadScene("4604");
 	// Tunnel by Kennel
 	//HIFF::Load_HIFF("4141");
 	//else
 		//scopa
 		//HIFF::Load_HIFF("4450");
-	loadScene("4450");
+	//loadScene("4450");
 
 	return true;
 }

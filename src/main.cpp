@@ -129,7 +129,7 @@ int main(int argc, char** argv)
 
 		while (SDL_PollEvent(&event))
 		{
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
 			// Poll and handle events (inputs, window resize, etc.)
 		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
 		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
@@ -175,13 +175,13 @@ int main(int argc, char** argv)
 					exit_requested = 1;
 					break;
 				}
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
 				//if (io.WantCaptureKeyboard)
 #endif
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
 				//if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
@@ -190,7 +190,7 @@ int main(int argc, char** argv)
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
 				//if (!io.WantCaptureMouse)
 				//{
 #endif
@@ -198,7 +198,7 @@ int main(int argc, char** argv)
 					//TODO: explicitly set to system cursor for IMGUI?
 				Cursor::CursorChanged = false;
 				currentScene->EventProc(event);
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
 				//}
 #endif
 				break;

@@ -1,10 +1,8 @@
 #pragma once
 
-const bool oldUI = true;
 static bool isEditing = false;
 
-//COMPILING_DLL must be defined in preprocessor
-#if defined(_WIN32)
+/*#if defined(_WIN32)
 #if COMPILING_DLL
 #define SE_API __declspec(dllexport)
 #else
@@ -14,4 +12,4 @@ static bool isEditing = false;
 
 #else
 #define SE_API __attribute__((__visibility__("default")))
-#endif
+#endif*/
