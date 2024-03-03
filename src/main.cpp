@@ -11,16 +11,9 @@
 #ifdef __APPLE__
 #include <unistd.h>
 #endif
-#include <time.h>
-#include <stdio.h>
-#include <stdarg.h>
 
 #ifdef __SWITCH__
 #include <switch.h>
-#elif !defined(__APPLE__)
-#include <imgui.h>
-#include <imgui_impl_sdl2.h>
-#include <imgui_impl_sdlrenderer2.h>
 #endif
 
 #include <SDL2/SDL.h>
@@ -45,11 +38,7 @@
 #include "Engine\Cursor.h"
 #include "Engine\Audio.h"
 #include <Engine\SapphireApp.h>
-
-/*void tracetest()
-{
-	LOG_S(ERROR) << loguru::stacktrace(1).c_str();
-}*/
+#include <imgui.h>
 
 int main(int argc, char** argv)
 {
@@ -71,8 +60,6 @@ int main(int argc, char** argv)
 	// Scene::ChangeScene(Scene_ptr(new Scene("Video/TUN_KenZR.png")));
 
 	Loader::Boot();
-	LOG_F(ERROR, "\nShutting down engine\n");
-	fatalError("die\n");
 
 	// render text as texture
 	//SDL_Rect helloworld_rect = { 0, SCREEN_HEIGHT - 36, 0, 0 };
@@ -93,13 +80,15 @@ int main(int argc, char** argv)
 	int exit_requested = 0;
 	int wait = 25;
 	SDL_Event event;
-	currentGUI->Draw();
-#if !defined(__SWITCH__) && !defined(__APPLE__)
-	//ImGuiIO& io = ImGui::GetIO();
-#endif
 	bool toggle = true;
 	int scenenum = 0;
 	bool check = false;
+
+	//IMGUI does not like being in a dll
+	ImGui::SetCurrentContext(currentGUI->imCtx);
+#if !defined(__SWITCH__) && !defined(__APPLE__)
+	ImGuiIO& io = ImGui::GetIO();
+#endif
 
 	/*std::vector<BinkPlayback_ptr> test;
 	std::string path = Loader::getVideoPath("YogiCine_");
@@ -122,6 +111,9 @@ int main(int argc, char** argv)
 	while (!exit_requested)
 #endif
 	{
+		//IMGUI does not like being in a dll
+		ImGui::SetCurrentContext(currentGUI->imCtx);
+
 		if (sceneReloadFlag)
 		{
 			ReloadScene();
@@ -137,26 +129,22 @@ int main(int argc, char** argv)
 
 		while (SDL_PollEvent(&event))
 		{
-#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
-			// Poll and handle events (inputs, window resize, etc.)
-		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
-		// - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
-		// Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-			ImGui_ImplSDL2_ProcessEvent(&event);
-#endif
+			if (event.type == SDL_QUIT)
+			{
+				exit_requested = 1;
+				break;
+			}
+
 			if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Graphics::window.get()))
 			{
 				exit_requested = 1;
 				break;
 			}
 
+			currentGUI->EventProc(event);
+
 			switch (event.type)
 			{
-			case SDL_QUIT:
-				exit_requested = 1;
-				break;
-
 				// use joystick
 #ifdef __SWITCH__
 			case SDL_JOYBUTTONDOWN:
@@ -183,31 +171,31 @@ int main(int argc, char** argv)
 					exit_requested = 1;
 					break;
 				}
-#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
-				//if (io.WantCaptureKeyboard)
+#if !defined(__SWITCH__) && !defined(__APPLE__)
+				if (io.WantCaptureKeyboard)
 #endif
-				break;
+					break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
-#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
-				//if (!io.WantCaptureMouse)
+#if !defined(__SWITCH__) && !defined(__APPLE__)
+				if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
-				currentScene->EventProc(event);
+					currentScene->EventProc(event);
 				//LOG_F(ERROR, "Touch at: %d,%d\n", event.tfinger.x, event.tfinger.y);
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
-#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
-				//if (!io.WantCaptureMouse)
-				//{
+#if !defined(__SWITCH__) && !defined(__APPLE__)
+				if (!io.WantCaptureMouse)
+				{
 #endif
 					//LOG_F(ERROR, "Fingermotion");
 					//TODO: explicitly set to system cursor for IMGUI?
-				Cursor::CursorChanged = false;
-				currentScene->EventProc(event);
-#if !defined(__SWITCH__) && !defined(__APPLE__) && !defined(_WIN32)
-				//}
+					Cursor::CursorChanged = false;
+					currentScene->EventProc(event);
+#if !defined(__SWITCH__) && !defined(__APPLE__)
+				}
 #endif
 				break;
 
@@ -231,6 +219,11 @@ int main(int argc, char** argv)
 
 		currentScene->Draw();
 		currentGUI->Draw();
+
+		//drawCheatSheet();
+		bool show_demo_window = true;
+		if (show_demo_window)
+			ImGui::ShowDemoWindow(&show_demo_window);
 
 		// put text on screen
 		//if (helloworld_tex)
