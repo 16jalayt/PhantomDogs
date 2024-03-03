@@ -70,4 +70,4 @@ private:
 	FFAudio_ptr audio;
 };
 
-using FFPlayer_ptr = std::shared_ptr<FFPlayer>;
+using FFPlayer_ptr = std::unique_ptr<FFPlayer>;

@@ -42,4 +42,4 @@ private:
 	SDL_AudioSpec wantedSpec = { 0 }, audioSpec = { 0 };
 };
 
-using FFAudio_ptr = std::shared_ptr<FFAudio>;
+using FFAudio_ptr = std::unique_ptr<FFAudio>;

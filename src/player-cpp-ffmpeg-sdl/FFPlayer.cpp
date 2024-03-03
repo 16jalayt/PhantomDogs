@@ -26,6 +26,7 @@ FFPlayer::~FFPlayer()
 	// close context info
 	avformat_close_input(&pFormatCtx);
 	avcodec_free_context(&pCodecCtx);
+	avcodec_free_context(&pCodecAudioCtx);
 
 	// free buffers
 	av_free(buffer);
@@ -39,6 +40,9 @@ FFPlayer::~FFPlayer()
 
 	// Close the video file
 	avformat_close_input(&pFormatCtx);
+
+	sws_freeContext(sws_ctx);
+	SDL_DestroyTexture(bmp);
 }
 
 void FFPlayer::OpenStream(std::string filename)
@@ -182,7 +186,7 @@ int FFPlayer::malloc(void)
 	//TODO: error handling for audio not initing
 	if (!Config::debugNoSound && !binkAudioLock)
 	{
-		audio = std::make_shared<FFAudio>(pCodecAudioCtx);
+		audio = std::make_unique<FFAudio>(pCodecAudioCtx);
 		audio->open();
 	}
 

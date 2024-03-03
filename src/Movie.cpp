@@ -14,7 +14,7 @@ Movie::Movie(std::string fileName, int x, int y, bool isLooped, RenderParent par
 		FMV->OpenPaused(fileName, x, y);
 		FMV->_isLooped = isLooped;*/
 
-		FMV = std::make_shared<FFPlayer>(fileName, x, y, isLooped);
+		FMV = std::make_unique<FFPlayer>(fileName, x, y, isLooped);
 	}
 	else if (ext == ".avf")
 	{

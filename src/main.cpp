@@ -16,24 +16,13 @@
 #include <switch.h>
 #endif
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-//#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL2_framerate.h>
-#include <SDL2/SDL2_rotozoom.h>
-
 #include "globals.h"
 #include "Engine\Utils.h"
 #include "Engine\Graphics.h"
-#include "Engine\Sprite.h"
-#include "Engine\SDL_ptr.h"
-#include "Engine\Button.h"
 #include "Engine\Config.h"
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
-#include "GUI.h"
 
 #include "Engine\Cursor.h"
 #include <Engine\SapphireApp.h>
@@ -45,64 +34,21 @@ int main(int argc, char** argv)
 	Utils::initLog(argc, argv);
 
 	SapphireApp_ptr app = std::make_unique<SapphireApp>("PhantomDogs", "A reimplementation of Nancy Drew 7");
-	//if (!app)
-	//{
-		//printf("\nUnable to start engine\n");
-		//quit();
-	//}
 
 	//Test loading screen
 	//SDL_Delay(2000);
 
-	//Sprite_ptr frame = std::make_shared<Sprite>("DataFiles/CIFTREE/frame.png", 0, 0, RenderParent::window);
-	//frame->setPos(SDL_Rect{ 0,0,(int)(frame->getWidth() * GlobalScale), (int)(frame->getHeight() * GlobalScale) });
-	// Scene::ChangeScene(Scene_ptr(new Scene("Video/TUN_KenZR.png")));
-
 	Loader::Boot();
-
-	// render text as texture
-	//SDL_Rect helloworld_rect = { 0, SCREEN_HEIGHT - 36, 0, 0 };
-	//SDL_Texture_ptr helloworld_tex = graphics->render_text("Hello, world!", graphics->getFont().get(), { 255, 255, 255, 0 }, &helloworld_rect);
-
-	//BinkPlayback_ptr bkFMV = BinkPlayback_ptr(new BinkPlayback());
-	//bkFMV->OpenBackground("Video/TUT_DeskCU_TXT_BG.bik");
-
-	//BinkPlayback_ptr menuFMV = BinkPlayback_ptr(new BinkPlayback());
-	//BinkPlayback_ptr menuFMV = make_BinkPlayback_s(new BinkPlayback());
-	//menuFMV->Open("Video/RKCINEC.bik", 0, 0, true);
-
-	//16 bits per sample mono
-	//_dataBuffers uint8_t
-	//Mix_Chunk chunk = new byte[20];
 
 	// loop variables
 	int exit_requested = 0;
-	int wait = 25;
 	SDL_Event event;
-	bool toggle = true;
-	int scenenum = 0;
-	bool check = false;
 
+#if !defined(__SWITCH__) && !defined(__APPLE__)
 	//IMGUI does not like being in a dll
 	ImGui::SetCurrentContext(currentGUI->imCtx);
-#if !defined(__SWITCH__) && !defined(__APPLE__)
 	ImGuiIO& io = ImGui::GetIO();
 #endif
-
-	/*std::vector<BinkPlayback_ptr> test;
-	std::string path = Loader::getVideoPath("YogiCine_");
-	BinkPlayback_ptr menuFMV = make_BinkPlayback_s(new BinkPlayback());
-	menuFMV->Open(path, 0, 0, false);
-	test.push_back(menuFMV);
-	//nextScene->AddMovie(menuFMV);*/
-
-	/*Mix_Chunk* gMedium = Mix_LoadWAV("HDSound/NGD198.ogg");
-	//Mix_Chunk* gMedium = Mix_LoadWAV("data/pop1.wav");
-	if (gMedium == NULL)
-	{
-		printf("Failed to load medium sound effect! SDL_mixer Error: %s\n", Mix_GetError());
-	}
-	Mix_PlayChannel(-1, gMedium, 0);*/
 
 #ifdef __SWITCH__
 	while (!exit_requested && appletMainLoop())
@@ -110,8 +56,10 @@ int main(int argc, char** argv)
 	while (!exit_requested)
 #endif
 	{
+#if !defined(__SWITCH__) && !defined(__APPLE__)
 		//IMGUI does not like being in a dll
 		ImGui::SetCurrentContext(currentGUI->imCtx);
+#endif
 
 		if (sceneReloadFlag)
 		{
@@ -120,9 +68,6 @@ int main(int argc, char** argv)
 		if (sceneChangeFlag)
 		{
 			sceneChangeFlag = false;
-			//Used as scene control variable
-			//flags[0] = false;
-			//HIFF::Load_HIFF(sceneChangeName);
 			_LoadScene(sceneChangeName);
 		}
 
@@ -212,27 +157,8 @@ int main(int argc, char** argv)
 
 		app->startFrame();
 
-		/*SDL_SetRenderTarget(Graphics::renderer.get(), GUIEngine::canvas.get());
-		SDL_RenderClear(Graphics::renderer.get());
-		SDL_SetRenderTarget(Graphics::renderer.get(), NULL);*/
-
 		currentScene->Draw();
 		currentGUI->Draw();
-
-		//drawCheatSheet();
-		bool show_demo_window = true;
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
-
-		// put text on screen
-		//if (helloworld_tex)
-			//SDL_RenderCopy(Graphics::renderer.get(), helloworld_tex.get(), NULL, &helloworld_rect);
-
-		//bkFMV->Draw();
-		/*for (auto& fmv : test) {
-			fmv->Draw();
-		}*/
-		//menuFMV->Draw();
 
 		app->endFrame();
 	}

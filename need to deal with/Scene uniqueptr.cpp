@@ -1,12 +1,15 @@
 #include "Scene.h"
 
-#include "audio.h"
-#include "Nancy/AVF.h"
-#include "Nancy/Loader.h"
-#include "graphics.h"
-#include "GUI.h"
-#include "Config.h"
-#include <loguru/loguru.hpp>
+#include "AVF.h"
+#include "HIFF.h"
+#include "Loader.h"
+#include "player-cpp-ffmpeg-sdl/FFPlayer.h"
+#include <Engine/Config.h>
+#include <Engine/GUIEngine.h>
+#include <Engine/Graphics.h>
+#include <Engine/AudioClip.h>
+#include <loguru.hpp>
+#include "Audio.h"
 
 Scene_ptr currentScene;
 Scene_ptr nextScene;
@@ -101,7 +104,8 @@ void Scene::setBkg(std::string backName)
 	{
 		//bkFMV = make_BinkPlayback_s(new BinkPlayback());
 		//bkFMV->OpenBackground(fileName);
-		FFPlayer_ptr player = std::make_shared<FFPlayer>(fileName, 0, 0);
+		//TODO: update to movie
+		FFPlayer_ptr player = std::make_unique<FFPlayer>(fileName, 0, 0);
 		bkFMV = player->GetFrame();
 	}
 	else if (ext == ".avf")
@@ -185,12 +189,15 @@ void _LoadScene(std::string sceneName)
 	flags[3] = false;
 	flags[4] = false;
 	HIFF::Load_HIFF(sceneName);
-	currentScene = nextScene;
+	currentScene = std::move(nextScene);
 	currentScene->Run();
 }
 
 void ReloadScene()
 {
+	nextScene = Scene_ptr(new Scene());
+	//TODO: redo with new object
+	//Scene flags don't get reset?
 	Audio::RemoveAllSounds();
 	currentScene->ovls.clear();
 	currentScene->hots.clear();

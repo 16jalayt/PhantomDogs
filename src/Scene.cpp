@@ -104,7 +104,8 @@ void Scene::setBkg(std::string backName)
 	{
 		//bkFMV = make_BinkPlayback_s(new BinkPlayback());
 		//bkFMV->OpenBackground(fileName);
-		FFPlayer_ptr player = std::make_shared<FFPlayer>(fileName, 0, 0);
+		//TODO: update to movie
+		FFPlayer_ptr player = std::make_unique<FFPlayer>(fileName, 0, 0);
 		bkFMV = player->GetFrame();
 	}
 	else if (ext == ".avf")
