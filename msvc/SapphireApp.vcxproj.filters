@@ -88,6 +88,9 @@
     <ClCompile Include="..\src\Audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\oldhertools\crypt_misc.hpp">
@@ -151,6 +154,9 @@
       <Filter>Source Files\player-cpp-ffmpeg-sdl</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

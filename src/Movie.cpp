@@ -1,6 +1,6 @@
 #include "Movie.h"
 #include "AVF.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 
 Movie::Movie(std::string fileName, int x, int y, bool isLooped, RenderParent parent, Scaled_Rect partial)
 {

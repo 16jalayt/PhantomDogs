@@ -8,7 +8,7 @@
 #include <Engine/GUI.h>
 #include <Engine/Graphics.h>
 #include <Engine/AudioClip.h>
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include "Audio.h"
 
 Scene_ptr currentScene;

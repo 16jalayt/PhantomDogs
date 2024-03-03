@@ -200,6 +200,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.cpp" />
     <ClCompile Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
+    <ClCompile Include="..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h" />
@@ -223,6 +224,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFAudio.h" />
     <ClInclude Include="..\src\player-cpp-ffmpeg-sdl\FFPlayer.h" />
     <ClInclude Include="..\src\Scene.h" />
+    <ClInclude Include="..\src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SapphireEngine\msvc\SapphireEngine.vcxproj">

@@ -6,7 +6,7 @@
 #include "Engine/Utils.h"
 #include "Engine/Config.h"
 #include "Loader.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include <Engine/AudioClip.h>
 
 void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int volR)

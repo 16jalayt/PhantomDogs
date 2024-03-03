@@ -1,5 +1,5 @@
 #include "CIFF.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include <fstream>
 
 //static because shoud only be one ciff structure per game

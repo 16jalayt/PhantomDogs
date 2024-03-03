@@ -3,7 +3,7 @@
 #include "Loader.h"
 #include "HIFFChunks/ACT/ACT.h"
 #include "HIFFChunks/SUM.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 
 bool HIFF::Load_HIFF(std::string sceneName)
 {

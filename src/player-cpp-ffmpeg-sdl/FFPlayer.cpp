@@ -5,7 +5,7 @@
 #include "Engine/Globals.h"
 #include "Engine/GUI.h"
 #include "Engine/Config.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 
 //TODO: move to game not engine
 //TODO: expose startPaused somewhere

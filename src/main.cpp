@@ -1,4 +1,12 @@
 #define SDL_MAIN_HANDLED
+//disable for insecure c functions and a warning about cxx17 standard
+#pragma warning( disable : 4996 )
+
+#define LOGURU_IMPLEMENTATION 1
+#define LOGURU_WITH_STREAMS 1
+#define LOGURU_FILENAME_WIDTH 15
+#define LOGURU_THREADNAME_WIDTH 13
+#include <loguru.hpp>
 
 #ifdef __APPLE__
 #include <unistd.h>
@@ -22,21 +30,18 @@
 #include <SDL2/SDL2_framerate.h>
 #include <SDL2/SDL2_rotozoom.h>
 
-//#include "vld.h"
-#include <loguru/loguru.hpp>
-//bad practice but vcpkg doesn't compile, so linker fails
-#include <loguru/loguru.cpp>
-
 #include "globals.h"
 #include "Engine\Utils.h"
 #include "Engine\Graphics.h"
 #include "Engine\Sprite.h"
 #include "Engine\SDL_ptr.h"
 #include "Engine\Button.h"
+#include "Engine\Config.h"
 #include "Scene.h"
 #include "Loader.h"
+#include "Utils.h"
 #include "Engine\GUI.h"
-#include "Engine\Config.h"
+
 #include "Engine\Cursor.h"
 #include "Engine\Audio.h"
 #include <Engine\SapphireApp.h>
@@ -49,6 +54,7 @@
 int main(int argc, char** argv)
 {
 	Config::parse(argc, argv);
+	Utils::initLog(argc, argv);
 
 	SapphireApp_ptr app = std::make_unique<SapphireApp>("PhantomDogs", "A reimplementation of Nancy Drew 7");
 	//if (!app)
@@ -65,6 +71,8 @@ int main(int argc, char** argv)
 	// Scene::ChangeScene(Scene_ptr(new Scene("Video/TUN_KenZR.png")));
 
 	Loader::Boot();
+	LOG_F(ERROR, "\nShutting down engine\n");
+	fatalError("die\n");
 
 	// render text as texture
 	//SDL_Rect helloworld_rect = { 0, SCREEN_HEIGHT - 36, 0, 0 };

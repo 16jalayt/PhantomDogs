@@ -1,7 +1,7 @@
 #include "CIFF.h"
 #include "Loader.h"
 #include <Engine/Graphics.h>
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include "Scene.h"
 
 GUI_ptr currentGUI;
@@ -30,21 +30,15 @@ bool Loader::Boot()
 
 	UIInit();
 
-	//test loose
-	//if (oldUI)
-		//Torchlight
-		//HIFF::Load_HIFF("4020");
-	//Puzzle Corrador
-		//HIFF::Load_HIFF("4150");
-		//tun stairs
-		//loadScene("4069");
+	//Torchlight
+	//HIFF::Load_HIFF("4020");
+//Puzzle Corrador
+	//HIFF::Load_HIFF("4150");
+	//tun stairs
+	//loadScene("4069");
 	loadScene("4604");
 	// Tunnel by Kennel
 	//HIFF::Load_HIFF("4141");
-	//else
-		//scopa
-		//HIFF::Load_HIFF("4450");
-	//loadScene("4450");
 
 	return true;
 }

@@ -1,5 +1,5 @@
 #include "Engine/globals.h"
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include <vector>
 #include <fstream>
 #include <Engine/Utils.h>

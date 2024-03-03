@@ -7,7 +7,7 @@
 #include <Engine/Utils.h>
 #include <Engine/Config.h>
 #include <Engine/Cursor.h>
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 #include "../../Loader.h"
 
 bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
@@ -121,6 +121,12 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		std::string path = Loader::getVideoPath(video);
 		Movie_ptr fmv = Movie_ptr(new Movie(path, 0, 0, false));
 		nextScene->AddMovie(fmv);*/
+
+		LOG_F(ERROR, "Before load bik");
+		std::string path2 = Loader::getVideoPath("RKCINEC");
+		Movie_ptr fmv2 = Movie_ptr(new Movie(path2, 0, 0, true));
+		LOG_F(ERROR, "Before add bik");
+		nextScene->AddMovie(fmv2);
 
 		//Testing
 		if (nextScene->fmvs.size() < 1)

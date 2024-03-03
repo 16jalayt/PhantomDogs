@@ -13,7 +13,7 @@
 #include <Engine/Graphics.h>
 #include <iomanip>
 #include <iostream>
-#include <loguru/loguru.hpp>
+#include <loguru.hpp>
 
 //TODO: Everything touched by avf leaks memory becasue it is static
 std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)
