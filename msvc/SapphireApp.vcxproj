@@ -186,6 +186,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClCompile Include="..\src\Audio.cpp" />
     <ClCompile Include="..\src\AVF.cpp" />
     <ClCompile Include="..\src\CIFF.cpp" />
+    <ClCompile Include="..\src\GUI.cpp" />
     <ClCompile Include="..\src\HIFF.cpp" />
     <ClCompile Include="..\src\HIFFChunks\ACT\ACT.cpp" />
     <ClCompile Include="..\src\HIFFChunks\SUM.cpp" />
@@ -208,6 +209,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClInclude Include="..\src\AVF.h" />
     <ClInclude Include="..\src\CIFF.h" />
     <ClInclude Include="..\src\Globals.h" />
+    <ClInclude Include="..\src\GUI.h" />
     <ClInclude Include="..\src\HIFF.h" />
     <ClInclude Include="..\src\HIFFChunks\ACT\ACT.h" />
     <ClInclude Include="..\src\HIFFChunks\Dependency.h" />

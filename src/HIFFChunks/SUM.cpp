@@ -27,7 +27,7 @@ bool SUM::Parse(std::ifstream& inFile, std::string sceneName)
 	//Loop. 0 infinite
 	int loop = readInt(inFile);
 
-	//Audio levels
+	//AudioEngine levels
 	int chan1 = readShort(inFile);
 	int chan2 = readShort(inFile);
 

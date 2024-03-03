@@ -9,12 +9,12 @@
 #include <loguru.hpp>
 #include <Engine/AudioClip.h>
 
-void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int volR)
+void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR)
 {
 	AddSound(sound, channel, loop, volL, volR, "");
 }
 
-void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
+void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
 {
 	AudioClip_ptr player = std::make_shared<AudioClip>();
 
@@ -172,7 +172,7 @@ void Audio2::AddSound(std::string sound, int channel, int loop, int volL, int vo
 		LOG_F(INFO, "    Silencing channel %d", channel);
 }
 
-void Audio2::AddMusic(std::string sound, int channel, int loop, int volL, int volR)
+void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int volR)
 {
 	if (currentMusic && sound == currentMusic->ClipName)
 		return;
@@ -219,7 +219,7 @@ void Audio2::AddMusic(std::string sound, int channel, int loop, int volL, int vo
 	currentMusic = player;
 }
 
-void Audio2::CheckTransitions()
+void Audio::CheckTransitions()
 {
 	//TODO: Doesn't transfer when file not found
 	for (int i = 0; i < sounds.size(); i++)
@@ -242,13 +242,13 @@ void Audio2::CheckTransitions()
 	}
 }
 
-void Audio2::AddTransition(std::string scene)
+void Audio::AddTransition(std::string scene)
 {
 	LOG_F(WARNING, "Audio::AddTransition Stub");
 }
 
 //problems with switch reading char
-bool Audio2::CheckIfOgg(SDL_RWops* file)
+bool Audio::CheckIfOgg(SDL_RWops* file)
 {
 	//Where ogg file should start
 	file->seek(file, 0x1e, RW_SEEK_SET);
@@ -258,7 +258,7 @@ bool Audio2::CheckIfOgg(SDL_RWops* file)
 	return (char)testVal == 'O';
 }
 
-void Audio2::pushIntToVector(int value, std::vector<char>* v)
+void Audio::pushIntToVector(int value, std::vector<char>* v)
 {
 	v->push_back(value);
 	v->push_back(value >> 8);
@@ -266,13 +266,13 @@ void Audio2::pushIntToVector(int value, std::vector<char>* v)
 	v->push_back(value >> 24);
 }
 
-void Audio2::pushShortToVector(short value, std::vector<char>* v)
+void Audio::pushShortToVector(short value, std::vector<char>* v)
 {
 	v->push_back((char)value);
 	v->push_back(value >> 8);
 }
 
-void Audio2::pushSringToVector(std::string value, std::vector<char>* v)
+void Audio::pushSringToVector(std::string value, std::vector<char>* v)
 {
 	v->insert(v->end(), value.begin(), value.end());
 }

@@ -33,10 +33,9 @@
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
-#include "Engine\GUI.h"
+#include "GUI.h"
 
 #include "Engine\Cursor.h"
-#include "Engine\Audio.h"
 #include <Engine\SapphireApp.h>
 #include <imgui.h>
 
@@ -213,7 +212,7 @@ int main(int argc, char** argv)
 
 		app->startFrame();
 
-		/*SDL_SetRenderTarget(Graphics::renderer.get(), GUI::canvas.get());
+		/*SDL_SetRenderTarget(Graphics::renderer.get(), GUIEngine::canvas.get());
 		SDL_RenderClear(Graphics::renderer.get());
 		SDL_SetRenderTarget(Graphics::renderer.get(), NULL);*/
 

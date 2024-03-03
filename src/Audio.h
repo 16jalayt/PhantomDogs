@@ -5,11 +5,11 @@
 
 #include <SDL2/SDL_mixer.h>
 #include <Engine/AudioClip.h>
-#include <Engine/Audio.h>
+#include <Engine/AudioEngine.h>
 #include "Globals.h"
 #include <memory>
 
-class Audio2 : public Audio
+class Audio : public AudioEngine
 {
 public:
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2);
@@ -27,4 +27,4 @@ private:
 };
 //Currently due to callback, only one bink can play audio at a time.
 static bool binkAudioLock = false;
-using Audio2_ptr = std::unique_ptr<Audio2>;
+using Audio_ptr = std::unique_ptr<Audio>;

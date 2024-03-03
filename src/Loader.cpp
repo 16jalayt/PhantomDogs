@@ -45,7 +45,7 @@ bool Loader::Boot()
 
 void Loader::UIInit()
 {
-	//currentGUI = GUI_ptr(new GUI());
+	//currentGUI = GUI_ptr(new GUIEngine());
 	currentGUI = std::make_shared<GUI>();
 
 	/*if (oldUI)

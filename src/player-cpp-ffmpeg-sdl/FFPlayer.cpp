@@ -3,7 +3,7 @@
 #include "defs.h"
 #include "../Audio.h"
 #include "Engine/Globals.h"
-#include "Engine/GUI.h"
+#include "Engine/GUIEngine.h"
 #include "Engine/Config.h"
 #include <loguru.hpp>
 
@@ -310,7 +310,7 @@ void FFPlayer::Draw()
 	//videoFrameThisFrame = false;
 	//parsePacket();
 
-	SDL_SetRenderTarget(Graphics::renderer.get(), GUI::canvas.get());
+	SDL_SetRenderTarget(Graphics::renderer.get(), GUIEngine::canvas.get());
 	SDL_RenderCopy(Graphics::renderer.get(), bmp, NULL, NULL);
 	SDL_SetRenderTarget(Graphics::renderer.get(), NULL);
 }

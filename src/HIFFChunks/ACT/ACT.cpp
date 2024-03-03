@@ -170,7 +170,7 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		int channel = readShort(inFile);
 		int channel = readShort(inFile);
 
-		//Audio levels
+		//AudioEngine levels
 		int chan1 = readShort(inFile);
 		int chan2 = readShort(inFile);
 

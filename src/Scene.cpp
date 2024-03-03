@@ -5,7 +5,7 @@
 #include "Loader.h"
 #include "player-cpp-ffmpeg-sdl/FFPlayer.h"
 #include <Engine/Config.h>
-#include <Engine/GUI.h>
+#include <Engine/GUIEngine.h>
 #include <Engine/Graphics.h>
 #include <Engine/AudioClip.h>
 #include <loguru.hpp>
@@ -63,7 +63,7 @@ void Scene::Draw()
 			hot->Draw();
 		}
 
-		Audio2::CheckTransitions();
+		Audio::CheckTransitions();
 	}
 }
 
@@ -140,25 +140,25 @@ void Scene::AddMovie(Movie_ptr fmv)
 //create music paused
 void Scene::AddMusic(std::string sound, int channel, int loop, int volL, int volR)
 {
-	Audio2::AddMusic(sound, channel, loop, volL, volR);
+	Audio::AddMusic(sound, channel, loop, volL, volR);
 }
 
 //create audio paused
 void Scene::AddSound(std::string sound, int channel, int loop, int volL, int volR)
 {
-	Audio2::AddSound(sound, channel, loop, volL, volR);
+	Audio::AddSound(sound, channel, loop, volL, volR);
 }
 
 //create audio paused with a scene to change to after ending
 void Scene::AddSound(std::string sound, int channel, int loop, int volL, int volR, int scene)
 {
-	Audio2::AddSound(sound, channel, loop, volL, volR, std::to_string(scene));
+	Audio::AddSound(sound, channel, loop, volL, volR, std::to_string(scene));
 }
 
 //create audio paused with a scene to change to after ending
 void Scene::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
 {
-	Audio2::AddSound(sound, channel, loop, volL, volR, scene);
+	Audio::AddSound(sound, channel, loop, volL, volR, scene);
 }
 
 //For internal use. Call Loader::loadScene instead
@@ -178,7 +178,7 @@ void _LoadScene(std::string sceneName)
 
 	//TODO: sounds in audio never gets cleared.
 	//This is not the place to do it. GC?
-	//Audio2::RemoveAllSounds();
+	//Audio::RemoveAllSounds();
 
 	//used for navigaiton
 	//TODO: go all the way to 30?
@@ -194,7 +194,7 @@ void _LoadScene(std::string sceneName)
 
 void ReloadScene()
 {
-	Audio2::RemoveAllSounds();
+	Audio::RemoveAllSounds();
 	currentScene->ovls.clear();
 	currentScene->hots.clear();
 	currentScene->fmvs.clear();
@@ -211,9 +211,9 @@ void Scene::Run()
 
 	if (!Config::debugNoSound)
 	{
-		Audio2::currentMusic->Play();
+		Audio::currentMusic->Play();
 
-		for (auto sound : Audio2::sounds)
+		for (auto sound : Audio::sounds)
 		{
 			sound->Play();
 		}

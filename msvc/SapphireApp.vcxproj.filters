@@ -91,6 +91,9 @@
     <ClCompile Include="..\src\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\oldhertools\crypt_misc.hpp">
@@ -157,6 +160,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
