@@ -2,11 +2,11 @@
 #include <fstream>
 
 #include "Scene.h"
-#include <Engine/GUIEngine.h>
+#include <Engine/GUI.h>
 #include <Engine/SDL_ptr.h>
 #include <vector>
 
-class GUI : public GUIEngine
+class GUI : public Engine::GUI
 {
 public:
 	void Draw();

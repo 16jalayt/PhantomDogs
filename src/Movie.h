@@ -2,7 +2,7 @@
 #include "Engine/AnimatedSprite.h"
 #include "player-cpp-ffmpeg-sdl/FFPlayer.h"
 
-class Movie : public Sprite
+class Movie : public Engine::Sprite
 {
 public:
 	Movie(std::string name, int x, int y, bool isLooped = false, RenderParent parent = RenderParent::canvas, Scaled_Rect partial = Scaled_Rect());

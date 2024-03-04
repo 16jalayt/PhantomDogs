@@ -30,7 +30,7 @@
 
 int main(int argc, char** argv)
 {
-	Config::parse(argc, argv);
+	Engine::Config::parse(argc, argv);
 	Utils::initLog(argc, argv);
 
 	SapphireApp_ptr app = std::make_unique<SapphireApp>("PhantomDogs", "A reimplementation of Nancy Drew 7");
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 				break;
 			}
 
-			if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Graphics::window.get()))
+			if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine::Graphics::window.get()))
 			{
 				exit_requested = 1;
 				break;

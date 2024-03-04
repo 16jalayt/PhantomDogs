@@ -4,7 +4,7 @@
 
 void Utils::initLog(int argc, char** argv)
 {
-	Config::initLog(argc, argv);
+	Engine::Config::initLog(argc, argv);
 
 #ifdef _DEBUG
 	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
@@ -17,7 +17,7 @@ void Utils::initLog(int argc, char** argv)
 	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
 #endif
 
-	if (Config::lograw)
+	if (Engine::Config::lograw)
 	{
 		loguru::g_preamble = false;
 	}
@@ -34,7 +34,7 @@ void Utils::initLog(int argc, char** argv)
 	//Init sets to main thread by default
 	loguru::set_thread_name("Main Thread");
 
-	if (Config::logfile)
+	if (Engine::Config::logfile)
 		loguru::add_file("game.log", loguru::Truncate, loguru::Verbosity_INFO);
 
 	//Logging tests/examples

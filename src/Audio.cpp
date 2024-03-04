@@ -16,7 +16,7 @@ void Audio::AddSound(std::string sound, int channel, int loop, int volL, int vol
 
 void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR, std::string scene)
 {
-	AudioClip_ptr player = std::make_shared<AudioClip>();
+	AudioClip_ptr player = std::make_shared<Engine::AudioClip>();
 
 	//if hdAudio then mus, else cdAudio chunk
 	std::string path = Loader::getSoundPath(sound);
@@ -177,7 +177,7 @@ void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int vol
 	if (currentMusic && sound == currentMusic->ClipName)
 		return;
 
-	AudioClip_ptr player = std::make_shared<AudioClip>();
+	AudioClip_ptr player = std::make_shared<Engine::AudioClip>();
 
 	std::string path = Loader::getSoundPath(sound);
 
@@ -205,7 +205,7 @@ void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int vol
 		player->Music = SDL_Mix_Music_ptr(Mix_LoadMUS(path.c_str()));
 	}
 
-	if (player->Music.get() == NULL && !Config::debugNoSound)
+	if (player->Music.get() == NULL && !Engine::Config::debugNoSound)
 	{
 		LOG_F(ERROR, "Failed to load music: %s , %s", path.c_str(), Mix_GetError());
 	}

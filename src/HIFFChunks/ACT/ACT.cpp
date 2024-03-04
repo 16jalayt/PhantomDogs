@@ -68,7 +68,7 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		if (!checkDeps(deps))
 			break;
 
-		Button_ptr testbutton = std::make_shared<Button>(hot, "");
+		Button_ptr testbutton = std::make_shared<Engine::Button>(hot, "");
 		nextScene->AddHotzone(testbutton);
 		testbutton->callback = [changeTo = changeTo]
 			{
@@ -220,7 +220,7 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		if (!checkDeps(deps))
 			break;
 
-		Sprite_ptr ovl = std::make_shared<Sprite>(Loader::getOVL(ovlImage).c_str(), destRect.x, destRect.y, RenderParent::canvas, srcRect);
+		Sprite_ptr ovl = std::make_shared<Engine::Sprite>(Loader::getOVL(ovlImage).c_str(), destRect.x, destRect.y, RenderParent::canvas, srcRect);
 		nextScene->AddSprite(ovl);
 
 		//Bad hack because lengh in hiff file is off by 1.
@@ -264,7 +264,7 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		int frame = readShort(inFile);
 		Scaled_Rect hotZone = { readInt(inFile), readInt(inFile), readInt(inFile), readInt(inFile) };
 
-		Button_ptr testbutton = std::make_shared<Button>(hotZone, "");
+		Button_ptr testbutton = std::make_shared<Engine::Button>(hotZone, "");
 		nextScene->AddHotzone(testbutton);
 		testbutton->callback = [flag = flag, truth = truth]
 			{
@@ -448,10 +448,10 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		if (!checkDeps(deps))
 			break;
 
-		Sprite_ptr ovl = std::make_shared<Sprite>(Loader::getOVL(ovlImage).c_str(), 0, 0);
+		Sprite_ptr ovl = std::make_shared<Engine::Sprite>(Loader::getOVL(ovlImage).c_str(), 0, 0);
 		nextScene->AddSprite(ovl);
 
-		Sprite_ptr mask = std::make_shared<Sprite>("data/lightmask.png", 0, 0);
+		Sprite_ptr mask = std::make_shared<Engine::Sprite>("data/lightmask.png", 0, 0);
 		nextScene->AddSprite(mask);
 		mask->isMask(true);
 

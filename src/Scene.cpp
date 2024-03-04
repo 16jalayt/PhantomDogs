@@ -5,7 +5,7 @@
 #include "Loader.h"
 #include "player-cpp-ffmpeg-sdl/FFPlayer.h"
 #include <Engine/Config.h>
-#include <Engine/GUIEngine.h>
+#include <Engine/GUI.h>
 #include <Engine/Graphics.h>
 #include <Engine/AudioClip.h>
 #include <loguru.hpp>
@@ -44,9 +44,9 @@ void Scene::Draw()
 	{
 		if (bkFMV)
 		{
-			SDL_SetRenderTarget(Graphics::renderer.get(), GUI::canvas.get());
-			SDL_RenderCopy(Graphics::renderer.get(), bkFMV.get(), NULL, NULL);
-			SDL_SetRenderTarget(Graphics::renderer.get(), NULL);
+			SDL_SetRenderTarget(Engine::Graphics::renderer.get(), GUI::canvas.get());
+			SDL_RenderCopy(Engine::Graphics::renderer.get(), bkFMV.get(), NULL, NULL);
+			SDL_SetRenderTarget(Engine::Graphics::renderer.get(), NULL);
 		}
 		else if (bk)
 			bk->Draw();
@@ -110,11 +110,11 @@ void Scene::setBkg(std::string backName)
 	}
 	else if (ext == ".avf")
 	{
-		bk = Sprite_ptr(new Sprite(std::move(AVF::parseAVF(fileName.c_str())[0]), 0, 0));
+		bk = Sprite_ptr(new Engine::Sprite(std::move(AVF::parseAVF(fileName.c_str())[0]), 0, 0));
 	}
 	else if (ext == ".png" || ext == ".jpg")
 	{
-		bk = Sprite_ptr(new Sprite(fileName.c_str(), 0, 0));
+		bk = Sprite_ptr(new Engine::Sprite(fileName.c_str(), 0, 0));
 	}
 	else
 	{
@@ -210,7 +210,7 @@ void Scene::Run()
 			fmv->FMV->_paused = false;
 	}
 
-	if (!Config::debugNoSound)
+	if (!Engine::Config::debugNoSound)
 	{
 		Audio::currentMusic->Play();
 

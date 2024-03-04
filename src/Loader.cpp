@@ -50,9 +50,9 @@ void Loader::UIInit()
 
 	SDL_Rect CanvasRect = { 52, 18, 536, 292 };
 	currentGUI->canvasRect = { (int)(CanvasRect.x * GlobalScale), (int)(CanvasRect.y * GlobalScale), (int)(CanvasRect.w * GlobalScale), (int)(CanvasRect.h * GlobalScale) };
-	currentGUI->canvas = SDL_Texture_ptr(SDL_CreateTexture(Graphics::renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, currentGUI->canvasRect.w, currentGUI->canvasRect.h));
+	currentGUI->canvas = SDL_Texture_ptr(SDL_CreateTexture(Engine::Graphics::renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, currentGUI->canvasRect.w, currentGUI->canvasRect.h));
 
-	Sprite_ptr frame = std::make_shared<Sprite>("DataFiles/CIFTREE/frame.png", 0, 0, RenderParent::window);
+	Sprite_ptr frame = std::make_shared<Engine::Sprite>("DataFiles/CIFTREE/frame.png", 0, 0, RenderParent::window);
 	currentGUI->AddSprite(frame);
 
 	/*SDL_Rect uppermatte = ScaledRect_to_SDLRect(Scaled_Rect{ 0, 0, 800, 55 });

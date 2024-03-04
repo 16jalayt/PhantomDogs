@@ -98,7 +98,7 @@ std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)
 SDL_Texture* RGB555_888_SDL(std::vector<uint8_t> col555, int width, int height) {
 	unsigned char* pixels = nullptr;
 	int pitch = 0;
-	SDL_Texture* texture = SDL_CreateTexture(Graphics::renderer.get(), SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STREAMING, width, height);
+	SDL_Texture* texture = SDL_CreateTexture(Engine::Graphics::renderer.get(), SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STREAMING, width, height);
 
 	// Now let's make our "pixels" pointer point to the texture data.
 	if (SDL_LockTexture(texture, nullptr, (void**)&pixels, &pitch))

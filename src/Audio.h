@@ -5,11 +5,11 @@
 
 #include <SDL2/SDL_mixer.h>
 #include <Engine/AudioClip.h>
-#include <Engine/AudioEngine.h>
+#include <Engine/Audio.h>
 #include "Globals.h"
 #include <memory>
 
-class Audio : public AudioEngine
+class Audio : public Engine::Audio
 {
 public:
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2);

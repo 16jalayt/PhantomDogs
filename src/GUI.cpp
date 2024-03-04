@@ -13,11 +13,11 @@
 #include "Globals.h"
 #include <Engine/Config.h>
 #include "Loader.h"
-#include <Engine/GUIEngine.h>
+#include <Engine/GUI.h>
 
 void GUI::Draw()
 {
-	GUIEngine::Draw();
+	Engine::GUI::Draw();
 	drawCheatSheet();
 }
 
@@ -96,7 +96,7 @@ void GUI::drawCheatSheet()
 				ImGui::SameLine();
 				ImGui::Text("Edit mode");
 
-				ToggleButtonV2("debugHot", &Config::debugHot);
+				ToggleButtonV2("debugHot", &Engine::Config::debugHot);
 				ImGui::SameLine();
 				ImGui::Text("Show debug hotzones");
 

@@ -24,7 +24,7 @@ Movie::Movie(std::string fileName, int x, int y, bool isLooped, RenderParent par
 			LOG_F(WARNING, "parseAVF returned empty for: %s\n", fileName.c_str());
 			return;
 		}
-		ASprite = std::make_unique<AnimatedSprite>(std::move(test), x, y);
+		ASprite = std::make_unique<Engine::AnimatedSprite>(std::move(test), x, y);
 		//ASprite = AnimatedSprite_ptr(new AnimatedSprite(std::move(AVF::parseAVF(fileName.c_str())), 0, 0));
 		ASprite->looped = isLooped;
 	}
