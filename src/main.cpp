@@ -17,14 +17,14 @@
 #endif
 
 #include "globals.h"
-#include "Engine\Utils.h"
-#include "Engine\Graphics.h"
-#include "Engine\Config.h"
+#include <Engine\Utils.h>
+#include <Engine\Graphics.h>
+#include <Engine\Config.h>
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
 
-#include "Engine\Cursor.h"
+#include "Cursor.h"
 #include <Engine\SapphireApp.h>
 #include <imgui.h>
 
@@ -160,6 +160,7 @@ int main(int argc, char** argv)
 		currentScene->Draw();
 		currentGUI->Draw();
 
+		Cursor::DrawCursor();
 		app->endFrame();
 	}
 

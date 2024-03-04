@@ -14,6 +14,12 @@
 #include <Engine/Config.h>
 #include "Loader.h"
 #include <Engine/GUI.h>
+#include "Cursor.h"
+
+GUI::GUI() :Engine::GUI()
+{
+	Cursor::Init();
+}
 
 void GUI::Draw()
 {

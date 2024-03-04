@@ -9,6 +9,7 @@
 class GUI : public Engine::GUI
 {
 public:
+	GUI();
 	void Draw();
 private:
 	void drawCheatSheet();
