@@ -6,9 +6,9 @@
 #include <Engine/Button.h>
 #include <Engine/Utils.h>
 #include <Engine/Config.h>
-#include <Engine/Cursor.h>
 #include <loguru.hpp>
 #include "../../Loader.h"
+#include "../../Cursor.h"
 
 bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 {
@@ -80,10 +80,13 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 				//sceneChangeFlag = true;
 				Loader::loadScene(changeTo);
 			};
+		testbutton->hover_event = [cursorNumber = cursorNumber]
+			{
+				Cursor::setCursor(cursorNumber);
+			};
 		//Now handled in button
 		//if (Config::debugHot)
 			//testbutton->setDebug(true);
-		testbutton->hoverCursor = cursorNumber;
 		//testbutton->visible(false);
 		break;
 	}
@@ -275,7 +278,10 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 				//sceneChangeFlag = true;
 				Loader::loadScene(currentScene->sceneFile);
 			};
-		testbutton->hoverCursor = cursorNumber;
+		testbutton->hover_event = [cursorNumber = cursorNumber]
+			{
+				Cursor::setCursor(cursorNumber);
+			};
 
 		break;
 	}
