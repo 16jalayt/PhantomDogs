@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	Engine::Config::parse(argc, argv);
 	Utils::initLog(argc, argv);
 
-	SapphireApp_ptr app = std::make_unique<SapphireApp>("PhantomDogs", "A reimplementation of Nancy Drew 7");
+	SapphireApp_ptr app = std::make_unique<SapphireApp>();
 
 	//Test loading screen
 	//SDL_Delay(2000);
