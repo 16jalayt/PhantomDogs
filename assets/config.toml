@@ -1,0 +1,15 @@
+fullscreen=false
+logfile = false
+gameName = "PhantomDogs"
+gameDesc = "A reimplementation of Nancy Drew 7"
+windowWidth = 800
+windowHeight = 600
+referenceWidth = 800
+referenceHeight = 600
+globalScale = 1.25
+
+[debug]
+debugHot = true
+debugNoSound = true
+debugMenuOpen = false
+lograw = true

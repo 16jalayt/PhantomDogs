@@ -13,8 +13,6 @@ public:
 	void Draw();
 private:
 	void drawCheatSheet();
-
-	bool cheatSheetOpen = true;
 };
 
 using GUI_ptr = std::shared_ptr<GUI>;

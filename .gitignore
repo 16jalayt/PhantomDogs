@@ -368,9 +368,11 @@ build/
 out/
 data/
 ref materials/
-assets/
 .vscode/
 frameworks/
+DataFiles/
+HDSound/
+HDVideo/
 x86/
 x64/
 obj/

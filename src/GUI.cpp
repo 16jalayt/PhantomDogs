@@ -31,7 +31,7 @@ void GUI::Draw()
 void GUI::drawCheatSheet()
 {
 	//TODO: key combo to toggle
-	if (cheatSheetOpen)
+	if (Engine::Config::debugMenuOpen)
 	{
 		//Forces to be immoveable
 		//ImGui::SetNextWindowPos(ImVec2(0, 0));
