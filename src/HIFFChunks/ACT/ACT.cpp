@@ -68,9 +68,9 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		if (!checkDeps(deps))
 			break;
 
-		Button_ptr testbutton = std::make_shared<Engine::Button>(hot, "");
-		nextScene->AddHotzone(testbutton);
-		testbutton->callback = [changeTo = changeTo]
+		Button_ptr hotZone = std::make_shared<Engine::Button>(hot, "");
+		nextScene->AddHotzone(hotZone);
+		hotZone->callback = [changeTo = changeTo]
 			{
 				//printf("lambda called\n");
 				//TODO: IMPORTANT: lambda creates new thread and deletes object mid execution
@@ -80,14 +80,14 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 				//sceneChangeFlag = true;
 				Loader::loadScene(changeTo);
 			};
-		testbutton->hover_event = [cursorNumber = cursorNumber]
+		hotZone->hover_event = [cursorNumber = cursorNumber]
 			{
 				Cursor::setCursor(cursorNumber);
 			};
 		//Now handled in button
 		//if (Config::debugHot)
-			//testbutton->setDebug(true);
-		//testbutton->visible(false);
+			//hotZone->setDebug(true);
+		//hotZone->visible(false);
 		break;
 	}
 	//Movie playback
