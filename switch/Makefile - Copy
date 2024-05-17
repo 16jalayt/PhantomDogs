@@ -38,12 +38,11 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
 SOURCEDIR	:=	../src
-TARGET		:=	SapphireDrew
-#TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 APPSRC      :=  $(SOURCEDIR) $(SOURCEDIR)/HIFFChunks $(SOURCEDIR)/HIFFChunks/ACT $(SOURCEDIR)/oldhertools $(SOURCEDIR)/player-cpp-ffmpeg-sdl
 SOURCES		:=	$(APPSRC)
-#DATA		:=	../data
+DATA		:=	../data
 INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine
 ROMFS		:=	../romfs
 
@@ -57,17 +56,19 @@ ICON		:=	icon.jpg
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 
 CFLAGS	:=	`$(PREFIX)pkg-config --cflags sdl2 SDL2_mixer SDL2_image libavcodec libavfilter libavformat libavutil` -Wno-comment -Wall -O2 -ffunction-sections \
-			$(ARCH) $(DEFINES) -Wno-deprecated -Wno-unused-variable -Wno-unknown-pragmas -fpermissive -Wno-deprecated-declarations -static
+			$(ARCH) $(DEFINES) -Wno-deprecated -Wno-unused-variable
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
+CXXFLAGS	:= $(CFLAGS) -fno-rtti 
+#-fno-exceptions
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-L../SapphireEngine/switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)  --verbose
+LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
 LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
-			-lnx -pthread -lm -lz -lsapphire
+			-lnx -pthread -lm -lz
+			#-lnx -pthread -lavformat -lavcodec -lswresample -lswscale -lavutil -lbz2 -lass -lvorbis -logg -lm -lz -lopus -lpng -lbz2 -lfribidi
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -83,7 +84,7 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
-export TOPDIR	:=	$(CURDIR)../
+export TOPDIR	:=	$(CURDIR)
 
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 			$(foreach dir,$(DATA),$(CURDIR)/$(dir))
