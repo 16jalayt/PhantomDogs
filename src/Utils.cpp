@@ -1,6 +1,9 @@
 #include "Utils.h"
 #include <Engine/Config.h>
 #include <loguru.hpp>
+#ifdef __SWITCH__
+#include <switch.h>
+#endif
 
 void Utils::initLog(int argc, char** argv)
 {
@@ -38,7 +41,7 @@ void Utils::initLog(int argc, char** argv)
 		loguru::add_file("game.log", loguru::Truncate, loguru::Verbosity_INFO);
 
 	//Logging tests/examples
-	//LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);
+	LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);
 	//LOG_S(INFO) << "Some float: " << 3.14;
 	//LOG_S(ERROR) << "My vec3: " << 3.14;
 	//LOG_S(ERROR) << loguru::stacktrace(1).c_str();
@@ -47,3 +50,24 @@ void Utils::initLog(int argc, char** argv)
 	//LOG_SCOPE_FUNCTION(INFO);
 	//VLOG_SCOPE_F(1, "Iteration %d", 5);
 }
+
+#ifdef __SWITCH__
+void Utils::switchInit()
+{
+	//Log to Ryujinx
+	consoleDebugInit(debugDevice_SVC);
+
+	//Log to nxlink on actual hardware
+	socketInitializeDefault();
+	nxlinkStdio();
+	//use cerr for both to work
+
+	//Running off sd card now so no romfs
+	/*Result rc = romfsInit();
+	if (R_FAILED(rc))
+		printf("romfsInit: %08X\n", rc);
+	chdir("romfs:/");*/
+
+	chdir("/switch/SapphireEngine/");
+}
+#endif

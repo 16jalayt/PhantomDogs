@@ -27,6 +27,13 @@ void GUI::Draw()
 	drawCheatSheet();
 }
 
+//Stub out as not using yet
+#if defined(__SWITCH__) || defined(__APPLE__)
+void GUI::drawCheatSheet()
+{
+}
+#endif
+
 #if !defined(__SWITCH__) && !defined(__APPLE__)
 void GUI::drawCheatSheet()
 {
@@ -115,5 +122,4 @@ void GUI::drawCheatSheet()
 		ImGui::End();
 	}
 }
-
 #endif

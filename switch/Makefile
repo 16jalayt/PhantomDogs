@@ -38,18 +38,20 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
 SOURCEDIR	:=	../src
-TARGET		:=	SapphireDrew
+TARGET		:=	PhantomDogs
 #TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 APPSRC      :=  $(SOURCEDIR) $(SOURCEDIR)/HIFFChunks $(SOURCEDIR)/HIFFChunks/ACT $(SOURCEDIR)/oldhertools $(SOURCEDIR)/player-cpp-ffmpeg-sdl
 SOURCES		:=	$(APPSRC)
 #DATA		:=	../data
-INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine
-ROMFS		:=	../romfs
+INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine $(SOURCEDIR)/../SapphireEngine/ext/loguru-master/build_switch
+#ROMFS		:=	../romfs
 
 APP_TITLE   := Sapphire App
 APP_AUTHOR  := 16jalayt
-ICON		:=	icon.jpg
+#cant find
+#ICON		:= icon.jpg
+NO_ICON		:= none
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -57,22 +59,24 @@ ICON		:=	icon.jpg
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 
 CFLAGS	:=	`$(PREFIX)pkg-config --cflags sdl2 SDL2_mixer SDL2_image libavcodec libavfilter libavformat libavutil` -Wno-comment -Wall -O2 -ffunction-sections \
-			$(ARCH) $(DEFINES) -Wno-deprecated -Wno-unused-variable -Wno-unknown-pragmas -fpermissive -Wno-deprecated-declarations -static
+			$(ARCH) $(DEFINES) -Wno-deprecated -Wno-unused-variable -Wno-unknown-pragmas -fpermissive -Wno-deprecated-declarations
+			#-static
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-L../SapphireEngine/switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)  --verbose
-
-LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
-			-lnx -pthread -lm -lz -lsapphire
+LDFLAGS	:= -L../../SapphireEngine/switch/lib -L../../SapphireEngine/ext/loguru-master/build_switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -static
+#--verbose
+LIBS	:=	-L../SapphireEngine/switch/lib `$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
+			-lnx -pthread -lm -lz -lsapphire -lloguru -lSDL2_gfx -lSDL2_ttf `$(PORTLIBS)/bin/freetype-config --libs`
+			#have to respecify sdl libs because won't completely link for some reason. pkg-config broken?
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX)
+LIBDIRS	:= $(PORTLIBS) $(LIBNX) 
 
 
 #---------------------------------------------------------------------------------
