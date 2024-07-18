@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 						if (wait < 100)
 							wait++;
 						break;*/
-				case KEY_MINUS:
+				case KEY_PLUS:
 					LOG_F(ERROR, "\nShutting down engine\n");
 					exit_requested = 1;
 					break;
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
 				}
 #endif
 				break;
-
+				//TODO: resize window. Mainly for switch
 				/*switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:

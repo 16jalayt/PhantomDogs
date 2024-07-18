@@ -47,9 +47,9 @@ SOURCES		:=	$(APPSRC)
 INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine $(SOURCEDIR)/../SapphireEngine/ext/loguru-master/build_switch
 #ROMFS		:=	../romfs
 
-APP_TITLE   := Sapphire App
+APP_TITLE   := Phantom Dogs
 APP_AUTHOR  := 16jalayt
-#cant find
+#cant find for some reason
 #ICON		:= icon.jpg
 NO_ICON		:= none
 
@@ -69,7 +69,7 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	:= -L../../SapphireEngine/switch/lib -L../../SapphireEngine/ext/loguru-master/build_switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -static
 #--verbose
-LIBS	:=	-L../SapphireEngine/switch/lib `$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
+LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
 			-lnx -pthread -lm -lz -lsapphire -lloguru -lSDL2_gfx -lSDL2_ttf `$(PORTLIBS)/bin/freetype-config --libs`
 			#have to respecify sdl libs because won't completely link for some reason. pkg-config broken?
 #---------------------------------------------------------------------------------

@@ -68,6 +68,6 @@ void Utils::switchInit()
 		printf("romfsInit: %08X\n", rc);
 	chdir("romfs:/");*/
 
-	chdir("/switch/SapphireEngine/");
+	chdir("/switch/PhantomDogs/");
 }
 #endif
