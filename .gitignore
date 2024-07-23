@@ -365,6 +365,7 @@ FodyWeavers.xsd
 
 
 build/
+build XCode/
 out/
 data/
 ref materials/
