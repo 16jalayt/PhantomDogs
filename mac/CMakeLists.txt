@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.24)
+
+#SET (CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE STRING "C++ compiler" FORCE)
+set(CMAKE_CXX_COMPILER "clang++")
+#TODO: undefined dynamic lookup just ignores linker. Need to fix
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi -undefined dynamic_lookup")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+
 project(PhantomDogs)
 
 #has to be under macbuild folder
@@ -64,6 +72,7 @@ file(GLOB SOURCES_IMGUI_STD CONFIGURE_DEPENDS "../SapphireEngine/ext/mac/imgui/m
 file(GLOB SOURCES_IMGUI CONFIGURE_DEPENDS "../SapphireEngine/ext/mac/imgui/*.h" "../SapphireEngine/ext/mac/imgui/*.cpp")
 file(GLOB SOURCES_GFX CONFIGURE_DEPENDS "../SapphireEngine/ext/mac/SDL2/*.h" "../SapphireEngine/ext/mac/SDL2/*.c")
 file(GLOB IMGUI_LIB "../SapphireEngine/ext/mac/imgui/build/*.dylib")
+file(GLOB SAPPHIRE_LIB "../SapphireEngine/mac/build/*.dylib")
 file(GLOB SOURCES_LOG CONFIGURE_DEPENDS "../SapphireEngine/ext/loguru-master/*.hpp" "../SapphireEngine/ext/loguru-master/*.cpp")
 file(GLOB SOURCES CONFIGURE_DEPENDS "../src/*.h" "../src/*.cpp")
 file(GLOB SOURCES_NANCY CONFIGURE_DEPENDS "../src/Nancy/*.h" "../src/Nancy/*.cpp")
@@ -136,13 +145,13 @@ endif()
 #bundle game resources
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_SOURCE_DIR}/../romfs"
+    "${CMAKE_SOURCE_DIR}/../assets"
     "$<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources"
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_SOURCE_DIR}/../SapphireEngine"
+    "${CMAKE_SOURCE_DIR}/../data"
     "$<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources"
 )
 

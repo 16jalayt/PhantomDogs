@@ -20,16 +20,16 @@
 #include <unistd.h>
 #endif
 
-#include "globals.h"
-#include <Engine\Utils.h>
-#include <Engine\Graphics.h>
-#include <Engine\Config.h>
+#include "Globals.h"
+#include <Engine/Utils.h>
+#include <Engine/Graphics.h>
+#include <Engine/Config.h>
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
 
 #include "Cursor.h"
-#include <Engine\SapphireApp.h>
+#include <Engine/SapphireApp.h>
 
 #ifndef __SWITCH__
 #include <imgui.h>
