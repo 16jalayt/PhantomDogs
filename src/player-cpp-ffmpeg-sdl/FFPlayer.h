@@ -1,6 +1,8 @@
 #pragma once
 //SDL #define _USE_MATH_DEFINES, FFMPEG defines it's own version
 #pragma warning(disable: 4005)
+//Suppresses warnings before version 7
+//#define FF_API_OLD_CHANNEL_LAYOUT
 
 extern "C"
 {

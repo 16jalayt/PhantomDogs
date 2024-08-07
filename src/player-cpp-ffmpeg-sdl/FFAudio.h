@@ -1,4 +1,6 @@
 #pragma once
+//Suppresses warnings before version 7
+//#define FF_API_OLD_CHANNEL_LAYOUT
 
 #include <SDL2/SDL_audio.h>
 #include "AudioPacket.h"

@@ -139,11 +139,11 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 			nextScene->AddMovie(fmv);*/
 			//TODO: switch doesn't load next background after avf
 
-			/*LOG_F(ERROR, "Before load bik");
+			LOG_F(ERROR, "Before load bik");
 			std::string path2 = Loader::getVideoPath("RKCINEC");
 			Movie_ptr fmv2 = Movie_ptr(new Movie(path2, 0, 0, true));
 			LOG_F(ERROR, "Before add bik");
-			nextScene->AddMovie(fmv2);*/
+			nextScene->AddMovie(fmv2);
 		}
 		//BinkPlayback_ptr menuFMV = make_BinkPlayback_s(new BinkPlayback());
 		//menuFMV->OpenPaused(path, 0, 0, false);
