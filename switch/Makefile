@@ -67,10 +67,10 @@ CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	:= -L../../SapphireEngine/switch/lib -L../../SapphireEngine/ext/loguru-master/build_switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -static
+LDFLAGS	:= -L../../SapphireEngine/switch/lib -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -static
 #--verbose
 LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx openal libavcodec libavfilter libavformat libavutil` \
-			-lnx -pthread -lm -lz -lsapphire -lloguru -lSDL2_gfx -lSDL2_ttf `$(PORTLIBS)/bin/freetype-config --libs`
+			-lnx -pthread -lm -lz -lsapphire -lSDL2_gfx -lSDL2_ttf `$(PORTLIBS)/bin/freetype-config --libs`
 			#have to respecify sdl libs because won't completely link for some reason. pkg-config broken?
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

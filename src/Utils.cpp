@@ -35,13 +35,13 @@ void Utils::initLog(int argc, char** argv)
 	//init important for crash logging
 	loguru::init(argc, argv);
 	//Init sets to main thread by default
-	loguru::set_thread_name("Main Thread");
+	loguru::set_thread_name("App Thread");
 
 	if (Engine::Config::logfile)
 		loguru::add_file("game.log", loguru::Truncate, loguru::Verbosity_INFO);
 
 	//Logging tests/examples
-	LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);
+	//LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);
 	//LOG_S(INFO) << "Some float: " << 3.14;
 	//LOG_S(ERROR) << "My vec3: " << 3.14;
 	//LOG_S(ERROR) << loguru::stacktrace(1).c_str();
