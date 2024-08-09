@@ -44,7 +44,7 @@ BUILD		:=	build
 APPSRC      :=  $(SOURCEDIR) $(SOURCEDIR)/HIFFChunks $(SOURCEDIR)/HIFFChunks/ACT $(SOURCEDIR)/oldhertools $(SOURCEDIR)/player-cpp-ffmpeg-sdl
 SOURCES		:=	$(APPSRC)
 #DATA		:=	../data
-INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine $(SOURCEDIR)/../SapphireEngine/ext/loguru-master/build_switch
+INCLUDES	:=	$(APPSRC) $(SOURCEDIR)/../SapphireEngine/include $(SOURCEDIR)/../SapphireEngine/include/Engine $(SOURCEDIR)/../SapphireEngine/switch/ext/loguru_switch
 #ROMFS		:=	../romfs
 
 APP_TITLE   := Phantom Dogs
