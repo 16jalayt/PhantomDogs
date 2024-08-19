@@ -75,13 +75,6 @@ void Scene::EventProc(SDL_Event event)
 			hot->Event(event);
 		}
 	}
-
-	if (this != NULL && ovls.size() != 0)
-	{
-		for (auto& ovl : ovls) {
-			ovl->Event(event);
-		}
-	}
 }
 
 void Scene::setBkg(std::string backName)
