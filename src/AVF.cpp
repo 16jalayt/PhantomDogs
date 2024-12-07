@@ -8,6 +8,7 @@
 
 #include "AVF.h"
 #include "Engine/Utils.h"
+#include "Utils.h"
 
 //#include <png++/png.hpp>
 #include <Engine/Graphics.h>
@@ -18,7 +19,7 @@
 //TODO: Everything touched by avf leaks memory becasue it is static
 std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)
 {
-	std::ifstream inFile = std::ifstream(file, std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = Utils::loadFile(file);
 	if (inFile.fail()) {
 		inFile.close();
 		LOG_F(ERROR, "Unable to open AVF file:%s", file);

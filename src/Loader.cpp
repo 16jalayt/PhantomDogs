@@ -1,3 +1,4 @@
+#include "Utils.h"
 #include "CIFF.h"
 #include "Loader.h"
 #include <Engine/Graphics.h>
@@ -13,7 +14,8 @@ bool Loader::Boot()
 	//ChangeScene(Scene_ptr(new Scene("", "Boot", "")));
 	loadScene("Boot");
 
-	CIFF::Load_Tree((char*)"DataFiles/CIFTREE.dat");
+	if (!CIFF::Load_Tree((char*)"DataFiles/CIFTREE.dat"))
+		fatalError("Unable to load ciftree");
 	//From danger by design. Split between cds
 	//CIFF::Load_Tree((char*)"DataFiles/CIFTREE_.dat");
 	CIFF::Load_Tree((char*)"DataFiles/PROMOTREE.DAT");
@@ -94,16 +96,16 @@ std::ifstream Loader::getDataFile(std::string sceneName)
 	//std::ifstream inFile;
 	//NOTE: for testing bacause files are named the same
 	/*if (oldUI)
-		inFile = std::ifstream("DataFiles/CIFTREE/S" + sceneName + ".hiff", std::ios::in | std::ios::binary | std::ios::ate);
+		inFile = Utils::loadFile("DataFiles/CIFTREE/S" + sceneName + ".hiff");
 	else
-		inFile = std::ifstream("Ciftree/S" + sceneName + ".hiff", std::ios::in | std::ios::binary | std::ios::ate);*/
+		inFile = Utils::loadFile("Ciftree/S" + sceneName + ".hiff");*/
 
-	std::ifstream inFile = std::ifstream("DataFiles/CIFTREE/S" + sceneName + ".hiff", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = Utils::loadFile("DataFiles/CIFTREE/S" + sceneName + ".hiff");
 	if (!inFile.fail()) {
 		return inFile;
 	}
 
-	inFile = std::ifstream("Ciftree/S" + sceneName + ".hiff", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Ciftree/S" + sceneName + ".hiff");
 	if (!inFile.fail()) {
 		return inFile;
 	}
@@ -118,13 +120,13 @@ std::string Loader::getOVL(std::string ovlName)
 	if (ovlName.empty())
 		return std::string();
 
-	std::ifstream inFile = std::ifstream("DataFiles/CIFTREE/" + ovlName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = Utils::loadFile("DataFiles/CIFTREE/" + ovlName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "DataFiles/CIFTREE/" + ovlName + ".png";
 	}
 
-	inFile = std::ifstream("Ciftree/" + ovlName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Ciftree/" + ovlName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "Ciftree/" + ovlName + ".png";
@@ -141,67 +143,67 @@ std::string Loader::getVideoPath(std::string backName)
 	if (backName.empty())
 		return std::string();
 
-	std::ifstream inFile = std::ifstream("CDVideo/" + backName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = Utils::loadFile("CDVideo/" + backName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "CDVideo/" + backName + ".png";
 	}
 
-	inFile = std::ifstream("CDVideo/" + backName + ".bik", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("CDVideo/" + backName + ".bik");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "CDVideo/" + backName + ".bik";
 	}
 
-	inFile = std::ifstream("CDVideo/" + backName + ".avf", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("CDVideo/" + backName + ".avf");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "CDVideo/" + backName + ".avf";
 	}
 
-	inFile = std::ifstream("HDVideo/" + backName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("HDVideo/" + backName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "HDVideo/" + backName + ".png";
 	}
 
-	inFile = std::ifstream("HDVideo/" + backName + ".bik", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("HDVideo/" + backName + ".bik");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "HDVideo/" + backName + ".bik";
 	}
 
-	inFile = std::ifstream("HDVideo/" + backName + ".avf", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("HDVideo/" + backName + ".avf");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "HDVideo/" + backName + ".avf";
 	}
 
-	inFile = std::ifstream("Video/" + backName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Video/" + backName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "Video/" + backName + ".png";
 	}
 
-	inFile = std::ifstream("Video/" + backName + ".bik", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Video/" + backName + ".bik");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "Video/" + backName + ".bik";
 	}
 
-	inFile = std::ifstream("Video/" + backName + ".jpg", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Video/" + backName + ".jpg");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "Video/" + backName + ".jpg";
 	}
 
-	inFile = std::ifstream("Video/" + backName + ".avf", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("Video/" + backName + ".avf");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "Video/" + backName + ".avf";
 	}
 
-	inFile = std::ifstream("DataFiles/CIFTREE/" + backName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("DataFiles/CIFTREE/" + backName + ".png");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "DataFiles/CIFTREE/" + backName + ".png";
@@ -217,31 +219,31 @@ std::string Loader::getSoundPath(std::string soundName)
 	if (soundName.empty())
 		return std::string();
 
-	std::ifstream inFile("HDSound/" + soundName + ".ogg", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile("HDSound/" + soundName + ".ogg");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "HDSound/" + soundName + ".ogg";
 	}
 
-	inFile = std::ifstream("CDSound/" + soundName + ".ogg", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("CDSound/" + soundName + ".ogg");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "CDSound/" + soundName + ".ogg";
 	}
 
-	inFile = std::ifstream("HDSound/" + soundName + ".wav", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("HDSound/" + soundName + ".wav");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "HDSound/" + soundName + ".wav";
 	}
 
-	inFile = std::ifstream("CDSound/" + soundName + ".wav", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("CDSound/" + soundName + ".wav");
 	if (!inFile.fail()) {
 		inFile.close();
 		return "CDSound/" + soundName + ".wav";
 	}
 
-	inFile = std::ifstream("HDSound/" + soundName + ".his", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("HDSound/" + soundName + ".his");
 	if (!inFile.fail()) {
 		inFile.close();
 		//LOG_F(ERROR, "HIS not supported yet!\n");
@@ -249,7 +251,7 @@ std::string Loader::getSoundPath(std::string soundName)
 		//return std::string();
 	}
 
-	inFile = std::ifstream("CDSound/" + soundName + ".his", std::ios::in | std::ios::binary | std::ios::ate);
+	inFile = Utils::loadFile("CDSound/" + soundName + ".his");
 	if (!inFile.fail()) {
 		inFile.close();
 		//LOG_F(ERROR, "HIS not supported yet!\n");

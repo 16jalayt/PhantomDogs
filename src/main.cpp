@@ -28,7 +28,13 @@
 #include <imgui.h>
 #endif
 
-int main(int argc, char** argv)
+//Doesn't seem to be needed?
+/*#ifdef __VITA__
+#include <psp2/moduleinfo.h>
+PSP2_MODULE_INFO(0, 0, "HelloWorld");
+#endif*/
+
+int main(int argc, char* argv[])
 {
 #ifdef __SWITCH__
 	Utils::switchInit();
@@ -48,7 +54,7 @@ int main(int argc, char** argv)
 	int exit_requested = 0;
 	SDL_Event event;
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 	//IMGUI does not like being in a dll
 	ImGui::SetCurrentContext(currentGUI->imCtx);
 	ImGuiIO& io = ImGui::GetIO();
@@ -60,7 +66,7 @@ int main(int argc, char** argv)
 	while (!exit_requested)
 #endif
 	{
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 		//IMGUI does not like being in a dll
 		ImGui::SetCurrentContext(currentGUI->imCtx);
 #endif
@@ -74,6 +80,8 @@ int main(int argc, char** argv)
 			sceneChangeFlag = false;
 			_LoadScene(sceneChangeName);
 		}
+
+		const Uint8* key_state = SDL_GetKeyboardState(NULL);
 
 		while (SDL_PollEvent(&event))
 		{
@@ -119,13 +127,22 @@ int main(int argc, char** argv)
 					exit_requested = 1;
 					break;
 				}
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+				else if (event.key.keysym.sym == SDLK_c &&
+					key_state[SDL_SCANCODE_LCTRL] &&
+					key_state[SDL_SCANCODE_LSHIFT] &&
+					key_state[SDL_SCANCODE_TAB])
+				{
+					//TODO: do something about imgui capturing tab when closing
+					if (Engine::Config::debugMenuEnabled)
+						currentGUI->cheatSheetOpen = !currentGUI->cheatSheetOpen;
+				}
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 				if (io.WantCaptureKeyboard)
 #endif
 					break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 				if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
@@ -134,7 +151,7 @@ int main(int argc, char** argv)
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 				if (!io.WantCaptureMouse)
 				{
 #endif
@@ -142,7 +159,7 @@ int main(int argc, char** argv)
 					//TODO: explicitly set to system cursor for IMGUI?
 					Cursor::CursorChanged = false;
 					currentScene->EventProc(event);
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 				}
 #endif
 				break;

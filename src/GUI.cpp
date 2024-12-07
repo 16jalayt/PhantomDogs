@@ -3,7 +3,7 @@
 #include "GUI.h"
 #include <string>
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
@@ -28,17 +28,16 @@ void GUI::Draw()
 }
 
 //Stub out as not using yet
-#if defined(__SWITCH__) || defined(__APPLE__)
+#if defined(__SWITCH__) || defined(__APPLE__) || defined(__VITA__)
 void GUI::drawCheatSheet()
 {
 }
 #endif
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
 void GUI::drawCheatSheet()
 {
-	//TODO: key combo to toggle
-	if (Engine::Config::debugMenuOpen)
+	if (cheatSheetOpen)
 	{
 		//Forces to be immoveable
 		//ImGui::SetNextWindowPos(ImVec2(0, 0));

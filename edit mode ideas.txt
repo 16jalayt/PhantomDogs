@@ -1,0 +1,4 @@
+tool pallette (select, add)
+arrow buttons nudge selected frame
+text boxes for dimensions with arrow on side
+text at top parented to frame when in edit mode

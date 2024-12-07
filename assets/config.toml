@@ -11,5 +11,5 @@ globalScale = 1.25
 [debug]
 debugHot = true
 debugNoSound = true
-debugMenuOpen = false
+debugMenuEnabled = true
 lograw = true
