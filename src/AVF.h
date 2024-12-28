@@ -5,7 +5,7 @@
 class AVF
 {
 public:
-	static std::vector<SDL_Texture_ptr> parseAVF(const char* file);
+	static std::vector<SDL_Texture_ptr> parseAVF(std::string file);
 
 private:
 };

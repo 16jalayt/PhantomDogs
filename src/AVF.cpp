@@ -17,12 +17,12 @@
 #include <loguru.hpp>
 
 //TODO: Everything touched by avf leaks memory becasue it is static
-std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)
+std::vector<SDL_Texture_ptr> AVF::parseAVF(std::string file)
 {
-	std::ifstream inFile = Utils::loadFile(file);
+	std::ifstream inFile = std::ifstream(file, std::ios::in | std::ios::binary | std::ios::ate);
 	if (inFile.fail()) {
 		inFile.close();
-		LOG_F(ERROR, "Unable to open AVF file:%s", file);
+		LOG_F(ERROR, "Unable to open AVF file:%s", file.c_str());
 		return std::vector<SDL_Texture_ptr>();
 	}
 
@@ -31,14 +31,14 @@ std::vector<SDL_Texture_ptr> AVF::parseAVF(const char* file)
 	std::string magic = readString(inFile, 15);
 	if (magic != "AVF WayneSikes")
 	{
-		LOG_F(ERROR, "Invalid header in file: %s", file);
+		LOG_F(ERROR, "Invalid header in file: %s", file.c_str());
 		return std::vector<SDL_Texture_ptr>();
 	}
 
 	//ver major													ver minor
 	if (!AssertShort(inFile, 2, true) || !AssertShort(inFile, 0, true))
 	{
-		LOG_F(ERROR, "Invalid version in file: %s", file);
+		LOG_F(ERROR, "Invalid version in file: %s", file.c_str());
 		return std::vector<SDL_Texture_ptr>();
 	}
 

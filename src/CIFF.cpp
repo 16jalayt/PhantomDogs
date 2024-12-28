@@ -1,6 +1,7 @@
 #include "CIFF.h"
-#include <loguru.hpp>
-#include "Utils.h"
+//gives linker error
+//#include <loguru.hpp>
+#include "Engine/Utils.h"
 #include <fstream>
 
 //static because shoud only be one ciff structure per game
@@ -9,12 +10,13 @@
 {
 }*/
 
-bool CIFF::Load_Tree(char* filename)
+//TODO: load tree
+bool CIFF::Load_Tree(std::string filename)
 {
-	std::ifstream inFile = Utils::loadFile(filename);
+	std::ifstream inFile = std::ifstream(PathFixer(filename), std::ios::in | std::ios::binary | std::ios::ate);
 
 	if (inFile.fail()) {
-		LOG_F(ERROR, "Could not open CIFF file: %s", filename);
+		LOG_F(ERROR, "Could not open CIFF file: %s", filename.c_str());
 		inFile.close();
 		return false;
 	}

@@ -73,19 +73,3 @@ void Utils::switchInit()
 	chdir("/switch/PhantomDogs/");
 }
 #endif
-
-//Hack to get vita paths correct.
-//TODO: find way to wrap SDL IMG_Load
-std::ifstream Utils::loadFile(std::string path)
-{
-	return loadFile(path, std::ios::in | std::ios::binary | std::ios::ate);
-}
-std::ifstream Utils::loadFile(std::string path, std::ios_base::openmode mode = std::ios::in | std::ios::binary | std::ios::ate)
-{
-#ifdef __VITA__
-	return std::ifstream("ux0:/data/Phantom Dogs/" + path, mode);
-#endif
-#ifndef __VITA__
-	return std::ifstream(path, mode);
-#endif
-}

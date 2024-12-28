@@ -4,6 +4,7 @@
 #include <Engine/Graphics.h>
 #include <loguru.hpp>
 #include "Scene.h"
+#include <Engine/Utils.h>
 
 GUI_ptr currentGUI;
 
@@ -14,11 +15,11 @@ bool Loader::Boot()
 	//ChangeScene(Scene_ptr(new Scene("", "Boot", "")));
 	loadScene("Boot");
 
-	if (!CIFF::Load_Tree((char*)"DataFiles/CIFTREE.dat"))
+	if (!CIFF::Load_Tree("DataFiles/CIFTREE.dat"))
 		fatalError("Unable to load ciftree");
 	//From danger by design. Split between cds
 	//CIFF::Load_Tree((char*)"DataFiles/CIFTREE_.dat");
-	CIFF::Load_Tree((char*)"DataFiles/PROMOTREE.DAT");
+	CIFF::Load_Tree("DataFiles/PROMOTREE.DAT");
 	//load cals, cifs, and loose hifs
 	//load scene boot
 
@@ -96,16 +97,16 @@ std::ifstream Loader::getDataFile(std::string sceneName)
 	//std::ifstream inFile;
 	//NOTE: for testing bacause files are named the same
 	/*if (oldUI)
-		inFile = Utils::loadFile("DataFiles/CIFTREE/S" + sceneName + ".hiff");
+		inFile = std::ifstream("DataFiles/CIFTREE/S" + sceneName + ".hiff");
 	else
-		inFile = Utils::loadFile("Ciftree/S" + sceneName + ".hiff");*/
+		inFile = std::ifstream("Ciftree/S" + sceneName + ".hiff");*/
 
-	std::ifstream inFile = Utils::loadFile("DataFiles/CIFTREE/S" + sceneName + ".hiff");
+	std::ifstream inFile = std::ifstream(PathFixer("DataFiles/CIFTREE/S" + sceneName + ".hiff"), std::ios::in | std::ios::binary | std::ios::ate);
 	if (!inFile.fail()) {
 		return inFile;
 	}
 
-	inFile = Utils::loadFile("Ciftree/S" + sceneName + ".hiff");
+	inFile = std::ifstream(PathFixer("Ciftree/S" + sceneName + ".hiff"), std::ios::in | std::ios::binary | std::ios::ate);
 	if (!inFile.fail()) {
 		return inFile;
 	}
@@ -120,97 +121,44 @@ std::string Loader::getOVL(std::string ovlName)
 	if (ovlName.empty())
 		return std::string();
 
-	std::ifstream inFile = Utils::loadFile("DataFiles/CIFTREE/" + ovlName + ".png");
+	std::ifstream inFile = std::ifstream(PathFixer("DataFiles/CIFTREE/" + ovlName + ".png"));
 	if (!inFile.fail()) {
 		inFile.close();
-		return "DataFiles/CIFTREE/" + ovlName + ".png";
+		return PathFixer("DataFiles/CIFTREE/" + ovlName + ".png");
 	}
 
-	inFile = Utils::loadFile("Ciftree/" + ovlName + ".png");
+	inFile = std::ifstream(PathFixer("Ciftree/" + ovlName + ".png"));
 	if (!inFile.fail()) {
 		inFile.close();
-		return "Ciftree/" + ovlName + ".png";
+		return PathFixer("Ciftree/" + ovlName + ".png");
 	}
 
 	LOG_F(ERROR, "Could not open OVL file: %s", ovlName.c_str());
 	return std::string();
 }
 
-//TODO: make faster? https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exists-using-standard-c-c11-14-17-c
 //Note: prefers loose files
 std::string Loader::getVideoPath(std::string backName)
 {
 	if (backName.empty())
 		return std::string();
 
-	std::ifstream inFile = Utils::loadFile("CDVideo/" + backName + ".png");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "CDVideo/" + backName + ".png";
-	}
+	const std::vector<std::string> paths = {
+		"CDVideo/",
+		"HDVideo/",
+		"Video/",
+		"DataFiles/CIFTREE/",
+		"DataFiles/"
+	};
 
-	inFile = Utils::loadFile("CDVideo/" + backName + ".bik");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "CDVideo/" + backName + ".bik";
-	}
+	const std::vector<std::string> exts = {
+		".bik",
+		".avf",
+		".png",
+		".jpg"
+	};
 
-	inFile = Utils::loadFile("CDVideo/" + backName + ".avf");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "CDVideo/" + backName + ".avf";
-	}
-
-	inFile = Utils::loadFile("HDVideo/" + backName + ".png");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "HDVideo/" + backName + ".png";
-	}
-
-	inFile = Utils::loadFile("HDVideo/" + backName + ".bik");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "HDVideo/" + backName + ".bik";
-	}
-
-	inFile = Utils::loadFile("HDVideo/" + backName + ".avf");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "HDVideo/" + backName + ".avf";
-	}
-
-	inFile = Utils::loadFile("Video/" + backName + ".png");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "Video/" + backName + ".png";
-	}
-
-	inFile = Utils::loadFile("Video/" + backName + ".bik");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "Video/" + backName + ".bik";
-	}
-
-	inFile = Utils::loadFile("Video/" + backName + ".jpg");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "Video/" + backName + ".jpg";
-	}
-
-	inFile = Utils::loadFile("Video/" + backName + ".avf");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "Video/" + backName + ".avf";
-	}
-
-	inFile = Utils::loadFile("DataFiles/CIFTREE/" + backName + ".png");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "DataFiles/CIFTREE/" + backName + ".png";
-	}
-
-	LOG_F(ERROR, "Cannot find background: %s", backName.c_str());
-	return std::string();
+	return FindFilePath(backName, paths, exts);
 }
 
 std::string Loader::getSoundPath(std::string soundName)
@@ -219,45 +167,16 @@ std::string Loader::getSoundPath(std::string soundName)
 	if (soundName.empty())
 		return std::string();
 
-	std::ifstream inFile("HDSound/" + soundName + ".ogg");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "HDSound/" + soundName + ".ogg";
-	}
+	const std::vector<std::string> paths = {
+		"CDSound/",
+		"HDSound/",
+	};
 
-	inFile = Utils::loadFile("CDSound/" + soundName + ".ogg");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "CDSound/" + soundName + ".ogg";
-	}
+	const std::vector<std::string> exts = {
+		".ogg",
+		".wav",
+		".his",
+	};
 
-	inFile = Utils::loadFile("HDSound/" + soundName + ".wav");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "HDSound/" + soundName + ".wav";
-	}
-
-	inFile = Utils::loadFile("CDSound/" + soundName + ".wav");
-	if (!inFile.fail()) {
-		inFile.close();
-		return "CDSound/" + soundName + ".wav";
-	}
-
-	inFile = Utils::loadFile("HDSound/" + soundName + ".his");
-	if (!inFile.fail()) {
-		inFile.close();
-		//LOG_F(ERROR, "HIS not supported yet!\n");
-		return "HDSound/" + soundName + ".his";
-		//return std::string();
-	}
-
-	inFile = Utils::loadFile("CDSound/" + soundName + ".his");
-	if (!inFile.fail()) {
-		inFile.close();
-		//LOG_F(ERROR, "HIS not supported yet!\n");
-		return "CDSound/" + soundName + ".his";
-		//return std::string();
-	}
-
-	return std::string();
+	return FindFilePath(soundName, paths, exts);
 }

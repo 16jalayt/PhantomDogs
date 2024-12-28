@@ -1,10 +1,11 @@
 #pragma once
+#include <string>
 
 class CIFF
 {
 public:
 	//CIFF();
-	static bool Load_Tree(char* filename);
+	static bool Load_Tree(std::string filename);
 	//load file
 protected:
 	//hashlist

@@ -1,6 +1,6 @@
 fullscreen=false
 logfile = false
-gameName = "PhantomDogs"
+gameName = "Phantom Dogs"
 gameDesc = "A reimplementation of Nancy Drew 7"
 windowWidth = 800
 windowHeight = 600
