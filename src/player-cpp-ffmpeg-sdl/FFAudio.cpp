@@ -8,6 +8,9 @@ FFAudio::FFAudio(AVCodecContext* pCodecAudioCtx)
 {
 	AudioCallback::set_audio_instance(this);
 
+	//audioq = { 0 };
+	//wanted_frame = { 0 };
+
 	swrCtx = swr_alloc();
 	if (swrCtx == NULL)
 	{
@@ -44,22 +47,22 @@ FFAudio::FFAudio(AVCodecContext* pCodecAudioCtx)
 FFAudio::~FFAudio()
 {
 	stopaudio = true;
-	SDL_PauseAudio(true);
-	SDL_CloseAudio();
-	binkAudioLock = false;
+	//SDL_PauseAudio(true);
+	//SDL_CloseAudio();
+	Audio::binkAudioLock = false;
 }
 
 void FFAudio::open()
 {
 	//SDL_AudioInit("winmm");
-	SDL_AudioInit("directsound");
+	//SDL_AudioInit("directsound");
 	if (SDL_OpenAudio(&wantedSpec, &audioSpec) < 0)
 	{
 		printf("FFAudio: Failed to open audio\n");
 		return;
 	}
 	//Currently due to callback, only one bink can play audio;
-	binkAudioLock = true;
+	Audio::binkAudioLock = true;
 
 	wanted_frame.format = AV_SAMPLE_FMT_S16;
 	wanted_frame.sample_rate = audioSpec.freq;

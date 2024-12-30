@@ -18,6 +18,8 @@ public:
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2, std::string scene);
 	static void AddTransition(std::string scene);
 	static void CheckTransitions();
+	//Currently due to callback, only one bink can play audio at a time.
+	static bool binkAudioLock;
 
 private:
 	static bool CheckIfOgg(SDL_RWops* file);
@@ -25,6 +27,4 @@ private:
 	static void pushShortToVector(short value, std::vector<char>* v);
 	static void pushSringToVector(std::string value, std::vector<char>* v);
 };
-//Currently due to callback, only one bink can play audio at a time.
-static bool binkAudioLock = false;
 using Audio_ptr = std::unique_ptr<Audio>;

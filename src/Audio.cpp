@@ -9,6 +9,8 @@
 #include <loguru.hpp>
 #include <Engine/AudioClip.h>
 
+bool Audio::binkAudioLock = false;
+
 void Audio::AddSound(std::string sound, int channel, int loop, int volL, int volR)
 {
 	AddSound(sound, channel, loop, volL, volR, "");
@@ -39,7 +41,7 @@ void Audio::AddSound(std::string sound, int channel, int loop, int volL, int vol
 			std::string ext = path.substr(path.length() - 4, 4);
 			if (ext == ".his")
 			{
-				SDL_RWops* file = SDL_RWFromFile(path.c_str(), "rb");
+				SDL_RWops* file = SDL_RWFromFile(PathFixer(path).c_str(), "rb");
 				if (file)
 				{
 					std::vector<char> v;
@@ -136,7 +138,7 @@ void Audio::AddSound(std::string sound, int channel, int loop, int volL, int vol
 					//ogg
 					else
 					{
-						SDL_RWops* file = SDL_RWFromFile(path.c_str(), "rb");
+						SDL_RWops* file = SDL_RWFromFile(PathFixer(path).c_str(), "rb");
 						file->seek(file, 0x1e, RW_SEEK_SET);
 						player->Clip = SDL_Mix_Chunk_ptr(Mix_LoadWAV_RW(file, 1));
 					}
@@ -186,7 +188,7 @@ void Audio::AddMusic(std::string sound, int channel, int loop, int volL, int vol
 	std::string ext = path.substr(path.length() - 4, 4);
 	if (ext == ".his")
 	{
-		SDL_RWops* file = SDL_RWFromFile(path.c_str(), "rb");
+		SDL_RWops* file = SDL_RWFromFile(PathFixer(path).c_str(), "rb");
 		if (file)
 		{
 			if (CheckIfOgg(file))

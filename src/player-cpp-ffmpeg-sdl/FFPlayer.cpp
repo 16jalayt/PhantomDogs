@@ -52,7 +52,7 @@ void FFPlayer::OpenStream(std::string filename)
 	audioStream = -1;
 
 	// open video
-	int res = avformat_open_input(&pFormatCtx, filename.c_str(), NULL, NULL);
+	int res = avformat_open_input(&pFormatCtx, PathFixer(filename).c_str(), NULL, NULL);
 
 	// check video
 	if (res != 0)
@@ -183,10 +183,10 @@ int FFPlayer::read_audio_video_codec(void)
 /*
 Alloc memory for the display
 */
-int FFPlayer::malloc(void)
+int FFPlayer::malloc()
 {
 	//TODO: error handling for audio not initing
-	if (!Config::debugNoSound && !binkAudioLock)
+	if (!Config::debugNoSound && !::Audio::binkAudioLock)
 	{
 		audio = std::make_unique<FFAudio>(pCodecAudioCtx);
 		audio->open();

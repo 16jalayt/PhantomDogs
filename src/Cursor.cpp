@@ -16,7 +16,7 @@ SDL_Cursor_ptr Cursor::loadCursorFromSheet(std::string filename, SDL_Rect rect)
 	if (spriteSheetPath != filename)
 	{
 		spriteSheetPath = filename;
-		spriteSheet = SDL_Surface_ptr(IMG_Load(filename.c_str()));
+		spriteSheet = SDL_Surface_ptr(IMG_Load(PathFixer(filename).c_str()));
 	}
 	if (!spriteSheet)
 	{
