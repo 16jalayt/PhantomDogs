@@ -1,4 +1,4 @@
-#include "Engine/globals.h"
+#include "Engine/Globals.h"
 #include <loguru.hpp>
 #include <vector>
 #include <fstream>

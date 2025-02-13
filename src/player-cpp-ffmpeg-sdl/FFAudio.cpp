@@ -8,9 +8,6 @@ FFAudio::FFAudio(AVCodecContext* pCodecAudioCtx)
 {
 	AudioCallback::set_audio_instance(this);
 
-	//audioq = { 0 };
-	//wanted_frame = { 0 };
-
 	swrCtx = swr_alloc();
 	if (swrCtx == NULL)
 	{
@@ -18,8 +15,13 @@ FFAudio::FFAudio(AVCodecContext* pCodecAudioCtx)
 		return;
 	}
 
+#if LIBAVUTIL_VERSION_MAJOR >= 59
 	av_opt_set_chlayout(swrCtx, "in_chlayout", &pCodecAudioCtx->ch_layout, 0);
 	av_opt_set_chlayout(swrCtx, "out_chlayout", &pCodecAudioCtx->ch_layout, 0);
+#else
+	av_opt_set_channel_layout(swrCtx, "in_channel_layout", pCodecAudioCtx->channel_layout, 0);
+	av_opt_set_channel_layout(swrCtx, "out_channel_layout", pCodecAudioCtx->channel_layout, 0);
+#endif
 	av_opt_set_int(swrCtx, "in_sample_rate", pCodecAudioCtx->sample_rate, 0);
 	av_opt_set_int(swrCtx, "out_sample_rate", pCodecAudioCtx->sample_rate, 0);
 	av_opt_set_sample_fmt(swrCtx, "in_sample_fmt", pCodecAudioCtx->sample_fmt, 0);
@@ -36,7 +38,11 @@ FFAudio::FFAudio(AVCodecContext* pCodecAudioCtx)
 	//TODO: redo so resample hapens to audio driver not other way around
 	memset(&wantedSpec, 0, sizeof(wantedSpec));
 
+#if LIBAVUTIL_VERSION_MAJOR < 59
+	wantedSpec.channels = pCodecAudioCtx->channels;
+#else
 	wantedSpec.channels = pCodecAudioCtx->ch_layout.nb_channels;
+#endif
 	wantedSpec.freq = pCodecAudioCtx->sample_rate;
 	wantedSpec.format = AUDIO_S16SYS;
 	wantedSpec.silence = 0;
@@ -66,9 +72,13 @@ void FFAudio::open()
 
 	wanted_frame.format = AV_SAMPLE_FMT_S16;
 	wanted_frame.sample_rate = audioSpec.freq;
+
+#if LIBAVUTIL_VERSION_MAJOR < 59
+	wanted_frame.channel_layout = av_get_default_channel_layout(audioSpec.channels);
+	wanted_frame.channels = audioSpec.channels;
+#else
 	av_channel_layout_default(&wanted_frame.ch_layout, audioSpec.channels);
-	//wanted_frame.ch_layout = av_get_default_channel_layout(audioSpec.channels);
-	//wanted_frame.channels = audioSpec.channels;
+#endif
 
 	audioq.nb_packets = 0;
 	audioq.size = 0;
@@ -110,20 +120,20 @@ int FFAudio::audio_decode_frame(AVCodecContext* aCodecCtx, uint8_t* audio_buf, i
 
 			data_size = 0;
 
-			/*if (frame.channels > 0 && frame.channel_layout == 0)
-				frame.channel_layout = av_get_default_channel_layout(frame.channels);
-			else if (frame.channels == 0 && frame.channel_layout > 0)
-				frame.channels = av_get_channel_layout_nb_channels(frame.channel_layout);*/
-
-				//needed?
+			//needed?
 			if (swr_ctx)
 			{
 				swr_free(&swr_ctx);
 				swr_ctx = NULL;
 			}
 
+#if LIBAVUTIL_VERSION_MAJOR < 59
+			swr_ctx = swr_alloc_set_opts(NULL, wanted_frame.channel_layout, (AVSampleFormat)wanted_frame.format, wanted_frame.sample_rate,
+				frame.channel_layout, (AVSampleFormat)frame.format, frame.sample_rate, 0, NULL);
+#else
 			swr_alloc_set_opts2(&swr_ctx, &wanted_frame.ch_layout, (AVSampleFormat)wanted_frame.format, wanted_frame.sample_rate,
 				&frame.ch_layout, (AVSampleFormat)frame.format, frame.sample_rate, 0, NULL);
+#endif
 
 			if (!swr_ctx || swr_init(swr_ctx) < 0)
 			{
@@ -150,7 +160,11 @@ int FFAudio::audio_decode_frame(AVCodecContext* aCodecCtx, uint8_t* audio_buf, i
 				swr_ctx = NULL;
 			}
 
+#if LIBAVUTIL_VERSION_MAJOR < 59
+			return wanted_frame.channels * len2 * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
+#else
 			return wanted_frame.ch_layout.nb_channels * len2 * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
+#endif
 		}
 
 		if (getAudioPacket(&audioq, &pkt, 1) < 0)
@@ -166,8 +180,9 @@ int FFAudio::put_audio_packet(AVPacket* packet)
 {
 	AVPacketList* pktl;
 	AVPacket* newPkt;
+
 	newPkt = (AVPacket*)av_calloc(1, sizeof(AVPacket));
-	//newPkt = (AVPacket*)av_mallocz_array(1, sizeof(AVPacket));
+
 	if (av_packet_ref(newPkt, packet) < 0)
 		return -1;
 
