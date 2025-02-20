@@ -3,18 +3,20 @@
 #include "GUI.h"
 #include <string>
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#include "Globals.h"
+#include <Engine/Config.h>
+#include "Loader.h"
+#include <Engine/GUI.h>
+#include "Cursor.h"
+
+#if !defined(NO_IMGUI)
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <imgui_stdlib.h>
 #include <imgui_internal.h>
 #endif
-#include "Globals.h"
-#include <Engine/Config.h>
-#include "Loader.h"
-#include <Engine/GUI.h>
-#include "Cursor.h"
+
 
 GUI::GUI() :Engine::GUI()
 {
@@ -27,16 +29,9 @@ void GUI::Draw()
 	drawCheatSheet();
 }
 
-//Stub out as not using yet
-#if defined(__SWITCH__) || defined(__APPLE__) || defined(__VITA__)
 void GUI::drawCheatSheet()
 {
-}
-#endif
-
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
-void GUI::drawCheatSheet()
-{
+#if !defined(NO_IMGUI)
 	if (cheatSheetOpen)
 	{
 		//Forces to be immoveable
@@ -120,5 +115,5 @@ void GUI::drawCheatSheet()
 
 		ImGui::End();
 	}
-}
 #endif
+}

@@ -3,7 +3,7 @@ SET(CMAKE_INSTALL_PREFIX ./lib)
 
 project(PhantomDogs)
 
-set(IMGUI_SUPPORTED TRUE)
+find_package(SDL2 REQUIRED)
 
 find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
 find_library(AVCODEC_LIBRARY avcodec)
@@ -20,39 +20,25 @@ find_library(AVRESAMPLE_LIBRARY swresample)
 find_path(AVSCALE_INCLUDE_DIR libswscale/swscale.h)
 find_library(AVSCALE_LIBRARY swscale)
 
-find_package(SDL2 REQUIRED)
-message(STATUS "SDL2 Version ${SDL2_VERSION}")
-if (${SDL2_VERSION} VERSION_LESS "2.0.17")
-  message(WARNING "SDL2 Version ${SDL2_VERSION} is less than 2.0.17. Disabling IMGUI support.")
-  add_compile_definitions(IMGUI_SUPPORTED)
-  set(IMGUI_SUPPORTED FALSE)
-endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/include/SDL2/ -std=c++14")
 #might allow to remove additions from loguru *_additions
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
-
-if (IMGUI_SUPPORTED)
 set(IMGUI_DIR ../SapphireEngine/ext/mac/imgui)
 
-include_directories(
-  ${IMGUI_DIR}
-  ${IMGUI_DIR}/backends
-  ${IMGUI_DIR}/misc/cpp/
-  /usr/include/SDL2/
-)
-endif()
 
 include_directories(
   ${AVCODEC_INCLUDE_DIR} ${AVFORMAT_INCLUDE_DIR} ${AVUTIL_INCLUDE_DIR} ${AVRESAMPLE_INCLUDE_DIR} ${AVSCALE_INCLUDE_DIR}
   "../src/"
   "../src/player-cpp-ffmpeg-sdl"
   "../SapphireEngine/ext/loguru-master"
+  ${IMGUI_DIR}
+  ${IMGUI_DIR}/backends
+  ${IMGUI_DIR}/misc/cpp/
   "../SapphireEngine/include"
 )
-
 
 file(GLOB_RECURSE game_SRC CONFIGURE_DEPENDS "../src/*.h" "../src/*.cpp")
 
@@ -70,7 +56,7 @@ set(IMGUI_SRC
 
 add_executable(${PROJECT_NAME}
   ${game_SRC}
-  $<$<BOOL:${IMGUI_SUPPORTED}>:${IMGUI_SRC}>
+  ${IMGUI_SRC}
 )
 
 link_directories("../SapphireEngine/linux/build")
@@ -94,5 +80,4 @@ target_link_libraries(${PROJECT_NAME}
   gcc
   z
   m
-  dl
 )

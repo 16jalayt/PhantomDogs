@@ -3,29 +3,14 @@ SET(CMAKE_INSTALL_PREFIX ./lib)
 
 project(PhantomDogs)
 
-set(IMGUI_SUPPORTED TRUE)
-
-find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
-find_library(AVCODEC_LIBRARY avcodec)
-
-find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h)
-find_library(AVFORMAT_LIBRARY avformat)
-
-find_path(AVUTIL_INCLUDE_DIR libavutil/avutil.h)
-find_library(AVUTIL_LIBRARY avutil)
-
-find_path(AVRESAMPLE_INCLUDE_DIR libswresample/swresample.h)
-find_library(AVRESAMPLE_LIBRARY swresample)
-
-find_path(AVSCALE_INCLUDE_DIR libswscale/swscale.h)
-find_library(AVSCALE_LIBRARY swscale)
+set(NO_IMGUI false)
 
 find_package(SDL2 REQUIRED)
 message(STATUS "SDL2 Version ${SDL2_VERSION}")
 if (${SDL2_VERSION} VERSION_LESS "2.0.17")
   message(WARNING "SDL2 Version ${SDL2_VERSION} is less than 2.0.17. Disabling IMGUI support.")
-  add_compile_definitions(IMGUI_SUPPORTED)
-  set(IMGUI_SUPPORTED FALSE)
+  add_compile_definitions(NO_IMGUI)
+  set(NO_IMGUI true)
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
@@ -34,19 +19,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
 
-if (IMGUI_SUPPORTED)
+if (NO_IMGUI EQUAL false)
 set(IMGUI_DIR ../SapphireEngine/ext/mac/imgui)
 
 include_directories(
   ${IMGUI_DIR}
   ${IMGUI_DIR}/backends
   ${IMGUI_DIR}/misc/cpp/
-  /usr/include/SDL2/
 )
 endif()
 
 include_directories(
-  ${AVCODEC_INCLUDE_DIR} ${AVFORMAT_INCLUDE_DIR} ${AVUTIL_INCLUDE_DIR} ${AVRESAMPLE_INCLUDE_DIR} ${AVSCALE_INCLUDE_DIR}
   "../src/"
   "../src/player-cpp-ffmpeg-sdl"
   "../SapphireEngine/ext/loguru-master"
@@ -70,8 +53,13 @@ set(IMGUI_SRC
 
 add_executable(${PROJECT_NAME}
   ${game_SRC}
-  $<$<BOOL:${IMGUI_SUPPORTED}>:${IMGUI_SRC}>
 )
+
+if (NO_IMGUI EQUAL false)
+add_library(${PROJECT_NAME} STATIC
+  ${IMGUI_SRC}
+)
+endif()
 
 link_directories("../SapphireEngine/linux/build")
 target_link_directories(${PROJECT_NAME} PRIVATE "../SapphireEngine/linux/build")
@@ -83,11 +71,15 @@ target_link_libraries(${PROJECT_NAME}
   SDL2_ttf 
   SDL2_gfx 
   SDL2 
-  ${AVCODEC_LIBRARY} 
-  ${AVFORMAT_LIBRARY} 
-  ${AVUTIL_LIBRARY} 
-  ${AVRESAMPLE_LIBRARY}
-  ${AVSCALE_LIBRARY}
+  swresample 
+  avutil 
+  avformat
+  avfilter
+  swscale 
+  avcodec
+  #vorbisfile
+  #vorbis
+  #ogg
 
   ${SDL2_LIBRARIES}
   pthread

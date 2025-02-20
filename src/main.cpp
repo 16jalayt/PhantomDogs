@@ -13,7 +13,6 @@
 #include <unistd.h>
 #endif
 
-#include "Globals.h"
 #include <Engine/Utils.h>
 #include <Engine/Graphics.h>
 
@@ -24,9 +23,11 @@
 #include "Cursor.h"
 #include <Engine/SapphireApp.h>
 
-#ifndef __SWITCH__
+#if !defined(NO_IMGUI)
 #include <imgui.h>
 #endif
+
+//#include <unistd.h>
 
 //Doesn't seem to be needed?
 /*#ifdef __VITA__
@@ -42,6 +43,10 @@ int main(int argc, char* argv[])
 
 	Engine::Config::parse(argc, argv);
 	Utils::initLog(argc, argv);
+	
+	/*char cwd[PATH_MAX];
+	getcwd(cwd, sizeof(cwd));
+	LOG_F(ERROR, "Path:%s", cwd);*/
 
 	SapphireApp_ptr app = std::make_unique<SapphireApp>();
 
@@ -54,7 +59,7 @@ int main(int argc, char* argv[])
 	int exit_requested = 0;
 	SDL_Event event;
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 	//IMGUI does not like being in a dll
 	ImGui::SetCurrentContext(currentGUI->imCtx);
 	ImGuiIO& io = ImGui::GetIO();
@@ -66,7 +71,7 @@ int main(int argc, char* argv[])
 	while (!exit_requested)
 #endif
 	{
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 		//IMGUI does not like being in a dll
 		ImGui::SetCurrentContext(currentGUI->imCtx);
 #endif
@@ -136,13 +141,13 @@ int main(int argc, char* argv[])
 					if (Engine::Config::debugMenuEnabled)
 						currentGUI->cheatSheetOpen = !currentGUI->cheatSheetOpen;
 				}
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 				if (io.WantCaptureKeyboard)
 #endif
 					break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 				if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
@@ -151,7 +156,7 @@ int main(int argc, char* argv[])
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 				if (!io.WantCaptureMouse)
 				{
 #endif
@@ -159,7 +164,7 @@ int main(int argc, char* argv[])
 					//TODO: explicitly set to system cursor for IMGUI?
 					Cursor::CursorChanged = false;
 					currentScene->EventProc(event);
-#if !defined(__SWITCH__) && !defined(__APPLE__)&& !defined(__VITA__)
+#if !defined(NO_IMGUI)
 				}
 #endif
 				break;
