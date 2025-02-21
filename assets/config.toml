@@ -1,5 +1,5 @@
 fullscreen=false
-logfile = false
+logfile = true
 gameName = "Phantom Dogs"
 gameDesc = "A reimplementation of Nancy Drew 7"
 windowWidth = 800
@@ -12,4 +12,5 @@ globalScale = 1.25
 debugHot = true
 debugNoSound = true
 debugMenuEnabled = true
-lograw = true
+logRaw = true
+logLevel = "ERROR"

@@ -34,17 +34,12 @@ PSP2_MODULE_INFO(0, 0, "HelloWorld");
 
 int main(int argc, char* argv[])
 {
-#ifdef __SWITCH__
-	Utils::switchInit();
-#endif
-
-	Utils::initLog(argc, argv);
-	
 	/*char cwd[PATH_MAX];
 	getcwd(cwd, sizeof(cwd));
 	LOG_F(ERROR, "Path:%s", cwd);*/
 
 	SapphireApp_ptr app = std::make_unique<SapphireApp>(argc, argv);
+	Utils::initLog();
 
 	//Test loading screen
 	//SDL_Delay(2000);

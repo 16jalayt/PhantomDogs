@@ -1,28 +1,14 @@
 #include "Utils.h"
 #include <Engine/Config.h>
 #include <loguru.hpp>
-#ifdef __SWITCH__
-#include <switch.h>
-#endif
-
 #include <fstream>
 
-void Utils::initLog(int argc, char** argv)
+//Has to be done in both threads
+void Utils::initLog()
 {
-	Engine::Config::initLog(argc, argv);
+	loguru::g_stderr_verbosity = Engine::Config::GetVerbosity();
 
-#ifdef _DEBUG
-	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
-#else
-	loguru::g_stderr_verbosity = loguru::Verbosity_ERROR;
-#endif
-
-	//Force to max because switch hard to debug
-#ifdef __SWITCH__
-	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
-#endif
-
-	if (Engine::Config::lograw)
+	if (Engine::Config::logRaw)
 	{
 		loguru::g_preamble = false;
 	}
@@ -34,13 +20,7 @@ void Utils::initLog(int argc, char** argv)
 		loguru::g_preamble_verbose = false;
 	}
 
-	//init important for crash logging
-	loguru::init(argc, argv);
-	//Init sets to main thread by default
-	loguru::set_thread_name("App Thread");
-
-	if (Engine::Config::logfile)
-		loguru::add_file("game.log", loguru::Truncate, loguru::Verbosity_INFO);
+	loguru::set_thread_name("Game Thread");
 
 	//Logging tests/examples
 	//LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);
@@ -52,24 +32,3 @@ void Utils::initLog(int argc, char** argv)
 	//LOG_SCOPE_FUNCTION(INFO);
 	//VLOG_SCOPE_F(1, "Iteration %d", 5);
 }
-
-#ifdef __SWITCH__
-void Utils::switchInit()
-{
-	//Log to Ryujinx
-	consoleDebugInit(debugDevice_SVC);
-
-	//Log to nxlink on actual hardware
-	socketInitializeDefault();
-	nxlinkStdio();
-	//use cerr for both to work
-
-	//Running off sd card now so no romfs
-	/*Result rc = romfsInit();
-	if (R_FAILED(rc))
-		printf("romfsInit: %08X\n", rc);
-	chdir("romfs:/");*/
-
-	chdir("/switch/PhantomDogs/");
-}
-#endif

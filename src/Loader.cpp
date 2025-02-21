@@ -15,7 +15,7 @@ bool Loader::Boot()
 	//ChangeScene(Scene_ptr(new Scene("", "Boot", "")));
 	loadScene("Boot");
 
-	if (!CIFF::Load_Tree("DataFiles/CIFTREE.dat"))
+	if (!CIFF::Load_Tree("DataFiles/CIFTREE.DAT"))
 		fatalError("Unable to load ciftree");
 	//From danger by design. Split between cds
 	//CIFF::Load_Tree((char*)"DataFiles/CIFTREE_.dat");
@@ -56,7 +56,7 @@ void Loader::UIInit()
 	//currentGUI->canvasRect = { (int)(CanvasRect.x * Engine::Config::globalScale), (int)(CanvasRect.y * Engine::Config::globalScale), (int)(CanvasRect.w * Engine::Config::globalScale), (int)(CanvasRect.h * Engine::Config::globalScale) };
 	currentGUI->canvas = SDL_Texture_ptr(SDL_CreateTexture(Engine::Graphics::renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, currentGUI->canvasRect.w, currentGUI->canvasRect.h));
 
-	Sprite_ptr frame = std::make_shared<Engine::Sprite>("DataFiles/CIFTREE/frame.png", 0, 0, RenderParent::window);
+	Sprite_ptr frame = std::make_shared<Engine::Sprite>("DataFiles/CIFTREE/FRAME.png", 0, 0, RenderParent::window);
 	currentGUI->AddSprite(frame);
 
 	/*SDL_Rect uppermatte = ScaledRect_to_SDLRect(Scaled_Rect{ 0, 0, 800, 55 });
