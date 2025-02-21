@@ -74,10 +74,9 @@ file(GLOB SOURCES_GFX CONFIGURE_DEPENDS "../SapphireEngine/ext/mac/SDL2/*.h" "..
 file(GLOB IMGUI_LIB "../SapphireEngine/ext/mac/imgui/build/*.dylib")
 file(GLOB SAPPHIRE_LIB "../SapphireEngine/mac/build/*.dylib")
 file(GLOB SOURCES_LOG CONFIGURE_DEPENDS "../SapphireEngine/ext/loguru-master/*.hpp" "../SapphireEngine/ext/loguru-master/*.cpp")
-file(GLOB SOURCES CONFIGURE_DEPENDS "../src/*.h" "../src/*.cpp")
-file(GLOB SOURCES_NANCY CONFIGURE_DEPENDS "../src/Nancy/*.h" "../src/Nancy/*.cpp")
-file(GLOB SOURCES_NANCY_CHUNKS CONFIGURE_DEPENDS "../src/Nancy/HIFFChunks/*.h" "../src/Nancy/HIFFChunks/*.cpp")
-file(GLOB SOURCES_NANCY_ACT CONFIGURE_DEPENDS "../src/Nancy/HIFFChunks/ACT/*.h" "../src/Nancy/HIFFChunks/ACT/*.cpp")
+file(GLOB SOURCES_NANCY CONFIGURE_DEPENDS "../src/*.h" "../src/*.cpp")
+file(GLOB SOURCES_NANCY_CHUNKS CONFIGURE_DEPENDS "../src/HIFFChunks/*.h" "../src/HIFFChunks/*.cpp")
+file(GLOB SOURCES_NANCY_ACT CONFIGURE_DEPENDS "../src/HIFFChunks/ACT/*.h" "../src/HIFFChunks/ACT/*.cpp")
 file(GLOB SOURCES_FF CONFIGURE_DEPENDS "../src/player-cpp-ffmpeg-sdl/*.h" "../src/player-cpp-ffmpeg-sdl/*.cpp")
 file(GLOB SOURCES_HER CONFIGURE_DEPENDS "../src/oldhertools/*.h" "../src/oldhertools/*.cpp")
 
@@ -146,12 +145,6 @@ endif()
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_SOURCE_DIR}/../assets"
-    "$<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources"
-)
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_SOURCE_DIR}/../data"
     "$<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources"
 )
 

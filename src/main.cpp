@@ -22,10 +22,7 @@
 
 #include "Cursor.h"
 #include <Engine/SapphireApp.h>
-
-#if !defined(NO_IMGUI)
-#include <imgui.h>
-#endif
+#include "Engine/IMGUIInclude.h"
 
 //#include <unistd.h>
 
@@ -41,14 +38,13 @@ int main(int argc, char* argv[])
 	Utils::switchInit();
 #endif
 
-	Engine::Config::parse(argc, argv);
 	Utils::initLog(argc, argv);
 	
 	/*char cwd[PATH_MAX];
 	getcwd(cwd, sizeof(cwd));
 	LOG_F(ERROR, "Path:%s", cwd);*/
 
-	SapphireApp_ptr app = std::make_unique<SapphireApp>();
+	SapphireApp_ptr app = std::make_unique<SapphireApp>(argc, argv);
 
 	//Test loading screen
 	//SDL_Delay(2000);

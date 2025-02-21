@@ -1,5 +1,4 @@
 //TODO:strip everything except drawCheatSheet()
-//TODO: update convention for engine includes
 #include "GUI.h"
 #include <string>
 
@@ -9,13 +8,7 @@
 #include <Engine/GUI.h>
 #include "Cursor.h"
 
-#if !defined(NO_IMGUI)
-#include <imgui.h>
-#include <imgui_impl_sdl2.h>
-#include <imgui_impl_sdlrenderer2.h>
-#include <imgui_stdlib.h>
-#include <imgui_internal.h>
-#endif
+#include "Engine/IMGUIInclude.h"
 
 
 GUI::GUI() :Engine::GUI()
