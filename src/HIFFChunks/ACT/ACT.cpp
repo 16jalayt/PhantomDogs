@@ -267,9 +267,9 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 		int frame = readShort(inFile);
 		Scaled_Rect hotZone = { readInt(inFile), readInt(inFile), readInt(inFile), readInt(inFile) };
 
-		Button_ptr testbutton = std::make_shared<Engine::Button>(hotZone, "");
-		nextScene->AddHotzone(testbutton);
-		testbutton->callback = [flag = flag, truth = truth]
+		Button_ptr scenebutton = std::make_shared<Engine::Button>(hotZone);
+		nextScene->AddHotzone(scenebutton);
+		scenebutton->callback = [flag = flag, truth = truth]
 			{
 				//TODO: make some sort of setFlag(flag);
 				flags[flag - 1000] = truth;
@@ -278,7 +278,7 @@ bool ACT::Parse(std::ifstream& inFile, int chunkLen, int chunkStart)
 				//sceneChangeFlag = true;
 				Loader::loadScene(currentScene->sceneFile);
 			};
-		testbutton->hover_event = [cursorNumber = cursorNumber]
+		scenebutton->hover_event = [cursorNumber = cursorNumber]
 			{
 				Cursor::setCursor(cursorNumber);
 			};
